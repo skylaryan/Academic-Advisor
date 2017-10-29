@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="wisc.academicadvisor.Welcome">
+
+
+    <TextView
+        android:id="@+id/academicadvisor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_name"
+        tools:layout_editor_absoluteX="136dp"
+        tools:layout_editor_absoluteY="203dp"
+        android:textSize="35sp"
+        android:layout_marginTop="133dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/createanaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_create_btn"
+        tools:layout_editor_absoluteX="108dp"
+        tools:layout_editor_absoluteY="359dp"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_login_btn"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="283dp"
+        android:layout_marginTop="53dp"
+        android:layout_below="@+id/academicadvisor"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

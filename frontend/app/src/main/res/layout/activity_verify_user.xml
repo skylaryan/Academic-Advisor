@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="wisc.academicadvisor.VerifyUser">
+
+    <TextView
+        android:id="@+id/enterapassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verify_user_enterpassword"
+        tools:layout_editor_absoluteX="141dp"
+        tools:layout_editor_absoluteY="216dp"
+        android:layout_marginTop="140dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/nameInputText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:inputType="textPassword"
+        android:layout_below="@+id/enterapassword"
+        android:layout_marginTop="21dp"
+        android:layout_alignLeft="@+id/enterapassword"
+        android:layout_alignStart="@+id/enterapassword"
+        android:layout_alignRight="@+id/enterapassword"
+        android:layout_alignEnd="@+id/enterapassword" />
+
+</RelativeLayout>
