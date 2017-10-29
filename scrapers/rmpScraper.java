@@ -21,24 +21,27 @@ class Professor
 {
     String name;
     double rating;
+    double diff;
 }
 public class rmpScraper {
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        int currOffset = 0;
-        PrintWriter writer = new PrintWriter("rmplinks.txt", "UTF-8");
-        while(currOffset <= 3960) {
-            String url = "http://www.ratemyprofessors.com/search.jsp?query=university+of+wisconsin+madison&queryoption=HEADER&stateselect=&country=&dept=&queryBy=&facetSearch=&schoolName=&offset=" + Integer.toString(currOffset) + "&max=20";
-            
-            Document doc = Jsoup.connect(url).get();
-            Elements links = doc.select("a[href]");
-            
-            for(Element link : links) {
-                if(link.text().contains("PROFESSOR"))
-                    writer.println(link.attr("abs:href"));
-            }
-            currOffset += 20;
-        }
-        writer.close();
+        /*
+         int currOffset = 0;
+         PrintWriter writer = new PrintWriter("rmplinks.txt", "UTF-8");
+         while(currOffset <= 3960) {
+         String url = "http://www.ratemyprofessors.com/search.jsp?query=university+of+wisconsin+madison&queryoption=HEADER&stateselect=&country=&dept=&queryBy=&facetSearch=&schoolName=&offset=" + Integer.toString(currOffset) + "&max=20";
+         
+         Document doc = Jsoup.connect(url).get();
+         Elements links = doc.select("a[href]");
+         
+         for(Element link : links) {
+         if(link.text().contains("PROFESSOR"))
+         writer.println(link.attr("abs:href"));
+         }
+         currOffset += 20;
+         }
+         writer.close();
+         */
         ArrayList<Professor> arr = new ArrayList();
         try (BufferedReader br = new BufferedReader(new FileReader("rmplinks.txt"))) {
             String line;
@@ -48,8 +51,10 @@ public class rmpScraper {
                 Professor s = new Professor();
                 Elements x = doc.getElementsByClass("profname");
                 Elements q = doc.getElementsByClass("grade");
+                
                 List<String> y = new LinkedList<String>();
                 List<String> z = new LinkedList<String>();
+                
                 
                 y = x.eachText();
                 z = q.eachText();
@@ -58,8 +63,9 @@ public class rmpScraper {
                     Professor temp = new Professor();
                     temp.name = y.get(i);
                     temp.rating = Float.parseFloat(z.get(i));
+                    temp.diff = Float.parseFloat(z.get(i+2));
                     arr.add(temp);
-                    System.out.println(temp.name+" "+temp.rating);
+                    System.out.println(temp.name+" "+temp.rating+" "+temp.diff);
                 }
             }
             /*
