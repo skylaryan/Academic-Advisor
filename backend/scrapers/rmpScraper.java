@@ -28,12 +28,12 @@ public class rmpScraper {
         // In this loop, we query ratemyprofessors for UW-Madison professors and put a link to each professors page in .txt called rmplinks.txt
         String url = "http://www.ratemyprofessors.com/search.jsp?query=university+of+wisconsin+madison&queryoption=HEADER&stateselect=&country=&dept=&queryBy=&facetSearch=&schoolName=&offset=" + Integer.toString(currOffset) + "&max=20";
             
-        Document doc = Jsoup.connect(url).get();
-        Elements links = doc.select("a[href]");
+        Document docScrapeLinks = Jsoup.connect(url).get();
+        Elements links = docScrapeLinks.select("a[href]");
         
-		Elements resultCount = docScrapeLinks.getElementsByClass("result-count");
-		String[] parsed = resultCount.eachText().get(1).split(" ");
-		int maxPage = Integer.parseInt(parsed[parsed.length - 2]);        
+	Elements resultCount = docScrapeLinks.getElementsByClass("result-count");
+	String[] parsed = resultCount.eachText().get(1).split(" ");
+	int maxPage = Integer.parseInt(parsed[parsed.length - 2]);        
         
         while(currOffset <= maxPage) {
             
