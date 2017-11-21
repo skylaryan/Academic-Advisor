@@ -19,7 +19,7 @@ class Professor
     double diff;
     List< String > tag;
 }
-public class rmpScraper {
+public class RmpScraper {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         
         
