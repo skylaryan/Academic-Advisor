@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -19,14 +20,15 @@ public class CourseSearchController {
     JdbcTemplate jdbcTemplate;
 
     @RequestMapping("/courses")
+    @ResponseBody
     public List<Course> courses(@RequestParam(value="breadth", defaultValue="") String breadth) {
         List<Map<String, Object>> rows;
         List<Course> courses = new ArrayList<>();
         try {
             if (!breadth.isEmpty()) {
                 breadth = breadth.replace("-", "' OR '"); // .replace("%20", " ")
-                rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses WHERE breadth=" + breadth);
-            } else rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses");
+                rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses WHERE breadth=" + breadth + ";");
+            } else rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses;");
 
             for (Map row : rows) {
                 Course course = new Course((String)row.get("course"),
