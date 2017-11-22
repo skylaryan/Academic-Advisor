@@ -37,7 +37,7 @@ public class CourseSearchController {
                                             (String)row.get("professor"),
                                             (Double)row.get("professorRating"),
                                             (String)row.get("description"),
-                                            ((String)row.get("schedule")).split("|"));
+                                            ((String)row.get("schedule")).split("|")); // TODO: empty?
                 courses.add(course);
             }
         } catch (Exception ex) { ex.printStackTrace(); }
