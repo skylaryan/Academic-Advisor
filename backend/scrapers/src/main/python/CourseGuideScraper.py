@@ -11,7 +11,7 @@ import requests
 import json
 
 
-browser = webdriver.Firefox(executable_path=r'/Users/utkarsh/geckodriver') #replace with .Firefox(), or with the browser of your choice
+browser = webdriver.Firefox(executable_path=r'/Users/utkarsh/AcadAdvisor/backend/scrapers/src/main/python/geckodriver') #replace with .Firefox(), or with the browser of your choice
 url = "https://public.my.wisc.edu/web/expanded"
 browser.get(url)
 delay = 10000 # seconds
@@ -63,8 +63,8 @@ for it in range(1, 188):
 				x=[]
 		flag = False		
 			
-with open('data.txt', 'w') as outfile:
-    json.dump(d, outfile)
+            #with open('data.txt', 'w') as outfile:
+print json.dumps(d)
 		
 
 
