@@ -45,7 +45,7 @@ public class CourseController {
                         (Double)row.get("professorRating"),
                         //(String)row.get("gradeHistory"),
                         (String)row.get("description"),
-                        ((String)row.get("schedule")).split("\\|"))); // TODO: empty? i.e. || vs | |
+                        ((String)row.get("schedule")).split("\\|")));
             }
         } catch (Exception ex) { ex.printStackTrace(); }
         return courses;
