@@ -27,7 +27,7 @@ public class CourseSearchController {
         try {
             if (!breadth.isEmpty()) {
                 breadth = breadth.replace("-", "' OR '"); // .replace("%20", " ")
-                rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses WHERE breadth=" + breadth);
+                rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses WHERE breadth='" + breadth + "'");
             } else rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses");
 
             for (Map row : rows) {
