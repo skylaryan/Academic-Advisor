@@ -4,29 +4,26 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 @Entity
 public class Course {
 
-    // properties
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    //private String courseAndSection;
     private String course; // CS200
     private int section; // 001
     private String title; // Introduction to Programming
     private int numCredits; // 3
-    private String[] breadth; // {"Natural Sciences"}
+    private List<String> breadth; // {"Natural Sciences"}
     private String professor; // John Doe
     private double professorRating; // 4.9
-    private double[][] gradeHistory; // list of last four semesters of grade info, each with avg gpa, percent A, AB, ...
+    private double[][] gradeHistory; // list of past semesters of grade info: each with avg gpa, percent A, AB, ...
     private String description; // This is a class where you will learn how to program.
     private String[] schedule; // MWF 2:30-3:45 & F 4-5 as {"14:30-15:45","","14:30-15:45","","14:30-15:45|16:00-17:00"}
 
-    public Course(/*String courseAndSection, */String course, int section, String title, int numCredits, String[] breadth,
-                  String professor, double professorRating, /*double[][] gradeHistory, */String description,
-                  String[] schedule) {
-        //this.courseAndSection = courseAndSection;
+    public Course(String course, int section, String title, int numCredits, List<String> breadth, String professor,
+                  double professorRating, /*double[][] gradeHistory, */String description, String[] schedule) {
         this.course = course;
         this.section = section;
         this.title = title;
@@ -39,12 +36,20 @@ public class Course {
         this.schedule = schedule;
     }
 
-    /*public String getCourseAndSection() {
-        return courseAndSection;
-    }*/
-
     public String getCourse() {
         return course;
+    }
+
+    public String getFullCourse() {
+        return course + "-" + String.format("%03d", section);
+    }
+
+    public String getDepartment() {
+        return course.split("(?<=\\D)(?=\\d)")[0];
+    }
+
+    public String getNumber() {
+        return course.split("(?<=\\D)(?=\\d)")[1];
     }
 
     public int getSection() {
@@ -59,7 +64,7 @@ public class Course {
         return numCredits;
     }
 
-    public String[] getBreadth() {
+    public List<String> getBreadth() {
         return breadth;
     }
 
