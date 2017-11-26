@@ -36,21 +36,16 @@ public class CourseController {
             } else rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses");
 
             for (Map row : rows) {
-                String tmp1 = (String) row.get("breadth");
-                System.out.println(tmp1);
-                String[] tmp2 = tmp1.split("|");
-                for (String s : tmp2) System.out.println(s);
-
                 courses.add(new Course((String)row.get("course"),
                         (Integer)row.get("section"),
                         (String)row.get("title"),
                         (Integer)row.get("numCredits"),
-                        tmp2,
+                        ((String)row.get("breadth")).split("\\|"),
                         (String)row.get("professor"),
                         (Double)row.get("professorRating"),
                         //(String)row.get("gradeHistory"),
                         (String)row.get("description"),
-                        ((String)row.get("schedule")).split("|"))); // TODO: empty? i.e. || vs | |
+                        ((String)row.get("schedule")).split("\\|"))); // TODO: empty? i.e. || vs | |
             }
         } catch (Exception ex) { ex.printStackTrace(); }
         return courses;
