@@ -19,9 +19,6 @@ public class CourseController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    List<Map<String, Object>> rows;
-    List<Course> courses = new ArrayList<>();
-
     @RequestMapping("/courses")
     public @ResponseBody List<Course> courses(@RequestParam(value="breadth", defaultValue="") String breadth,
                                               @RequestParam(value="credits", defaultValue="0") int numCredits,
@@ -29,6 +26,9 @@ public class CourseController {
                                               @RequestParam(value="number", defaultValue="0") int number,
                                               @RequestParam(value="busy", defaultValue="") String busy,
                                               @RequestParam(value="tags", defaultValue="") String tags) {
+        List<Map<String, Object>> rows;
+        List<Course> courses = new ArrayList<>();
+
         try {
             if (!breadth.isEmpty()) {
                 breadth = breadth.replace("-", "' OR '");
