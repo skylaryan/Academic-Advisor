@@ -35,14 +35,15 @@ public class CourseController {
                 rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses WHERE breadth='" + breadth + "'");
             } else rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses");
 
-            String[] tmp = {"Natural Sciences", "Natural Science"};
-
             for (Map row : rows) {
+                String tmp1 = (String) row.get("breadth");
+                String[] tmp2 = tmp1.split("|");
+
                 courses.add(new Course((String)row.get("course"),
                         (Integer)row.get("section"),
                         (String)row.get("title"),
                         (Integer)row.get("numCredits"),
-                        tmp,
+                        tmp2,
                         (String)row.get("professor"),
                         (Double)row.get("professorRating"),
                         //(String)row.get("gradeHistory"),
