@@ -40,7 +40,7 @@ public class CourseController {
                         (Integer)row.get("section"),
                         (String)row.get("title"),
                         (Integer)row.get("numCredits"),
-                        ((List<String>)row.get("breadth")),//.split("|"),
+                        ((String)row.get("breadth")).split("|"),
                         (String)row.get("professor"),
                         (Double)row.get("professorRating"),
                         //(String)row.get("gradeHistory"),
