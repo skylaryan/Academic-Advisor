@@ -37,7 +37,9 @@ public class CourseController {
 
             for (Map row : rows) {
                 String tmp1 = (String) row.get("breadth");
+                System.out.println(tmp1);
                 String[] tmp2 = tmp1.split("|");
+                for (String s : tmp2) System.out.println(s);
 
                 courses.add(new Course((String)row.get("course"),
                         (Integer)row.get("section"),
