@@ -5,12 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+//@Entity
 public class Course {
 
     // properties
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy= GenerationType.AUTO)
     //private String courseAndSection;
     private String course; // CS200
     private int section; // 001
