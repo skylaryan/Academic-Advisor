@@ -26,7 +26,7 @@ public class CourseController {
     public @ResponseBody List<Course> courses(@RequestParam(value="breadth", defaultValue="") String breadth,
                                               @RequestParam(value="credits", defaultValue="0") int numCredits,
                                               @RequestParam(value="department", defaultValue="") String department,
-                                              @RequestParam(value="number", defaultValue="") int number,
+                                              @RequestParam(value="number", defaultValue="0") int number,
                                               @RequestParam(value="busy", defaultValue="") String busy,
                                               @RequestParam(value="tags", defaultValue="") String tags) {
         try {
