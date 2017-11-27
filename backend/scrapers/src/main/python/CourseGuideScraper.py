@@ -8,10 +8,15 @@ from lxml.etree import tostring
 from selenium.webdriver.support.ui import Select
 import bs4 as bs
 import requests
-import json
+import simplejson as json
+from pyvirtualdisplay import Display
 
 
-browser = webdriver.Firefox(executable_path=r'/Users/utkarsh/AcadAdvisor/backend/scrapers/src/main/python/geckodriver') #replace with .Firefox(), or with the browser of your choice
+display = Display(visible=0, size=(1024, 768))
+display.start()
+
+
+browser = webdriver.Firefox(executable_path=r'~/academicadvisor/backend/scrapers/src/main/python/geckodriver') #replace with .Firefox(), or with the browser of your choice
 url = "https://public.my.wisc.edu/web/expanded"
 browser.get(url)
 delay = 10000 # seconds
@@ -30,7 +35,7 @@ norespg = Select(browser.find_element_by_id("resultsPerPageSelectPluto_29_u124l1
 norespg.select_by_index(3)
 
 d = []
-for it in range(1, 188):
+for it in range(1, 2):
 	mySelectElement = Select(browser.find_element_by_id("subjSelPluto_29_u124l1n31_12_tw_"))
 	Spring = browser.find_element_by_id("termChoice3")
 	Spring.click()
@@ -62,7 +67,8 @@ for it in range(1, 188):
 				d.append(x)
 				x=[]
 		flag = False		
-			
+
+display.stop()
             #with open('data.txt', 'w') as outfile:
 print json.dumps(d)
 		
