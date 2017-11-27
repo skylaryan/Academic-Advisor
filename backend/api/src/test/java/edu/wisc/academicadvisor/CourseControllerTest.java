@@ -73,7 +73,7 @@ public class CourseControllerTest {
 
         this.mockMvc.perform(get("/courses").param("number", "200"))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").isNotEmpty();
+                .andExpect(jsonPath("$.content").isNotEmpty());
     }
 
     @Test
