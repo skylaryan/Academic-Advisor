@@ -12,7 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class rmpScraper {
+public class RmpScraper {
     public static void main(String[] args) throws IOException
     {
         
@@ -75,3 +75,4 @@ public class rmpScraper {
     }
     
 }
+
