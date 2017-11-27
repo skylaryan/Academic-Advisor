@@ -7,12 +7,87 @@
     tools:context="wisc.academicadvisor.CourseSearch">
 
     <TextView
-        android:id="@+id/course_search"
+        android:id="@+id/course_UID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Course Search"
+        android:text="DeptNumberSec#"
+        android:layout_marginTop="13dp"
+        android:textSize="20pt"
+        android:layout_marginStart="13dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:textSize="20pt"/>
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/course_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:textSize="8pt"
+        android:text="Course Title"
+        android:layout_below="@+id/course_UID"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credits: "
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/course_title"
+        android:layout_alignStart="@+id/breadth" />
+
+    <TextView
+        android:id="@+id/breadth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Breadth: "
+        android:layout_below="@+id/credits"
+        android:layout_alignStart="@+id/course_UID" />
+
+    <TextView
+        android:id="@+id/professor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/breadth"
+        android:layout_below="@+id/breadth"
+        android:layout_marginTop="5dp"
+        android:text="Professor: " />
+
+    <TextView
+        android:id="@+id/prof_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/professor"
+        android:layout_below="@+id/professor"
+        android:layout_marginTop="5dp"
+        android:text="Professor Rating: " />
+
+    <TextView
+        android:id="@+id/schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/prof_rating"
+        android:layout_below="@+id/prof_rating"
+        android:layout_marginTop="5dp"
+        android:text="Schedule: " />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@+id/schedule"
+        android:layout_below="@+id/schedule"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:layout_alignEnd="@+id/course_UID">
+
+        <TextView
+            android:id="@id/course_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="course_description" >
+        </TextView>
+    </ScrollView>
+
+
 </RelativeLayout>
