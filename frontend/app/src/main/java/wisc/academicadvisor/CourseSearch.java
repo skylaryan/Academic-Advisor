@@ -3,10 +3,14 @@ package wisc.academicadvisor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
 
 import android.text.Html;
 import android.widget.TextView;
+
+import static android.R.attr.description;
 
 
 public class CourseSearch extends AppCompatActivity {
@@ -33,52 +37,47 @@ public class CourseSearch extends AppCompatActivity {
         // course_desc should be appeneded with \n to see last line of text!
         //      (if scrolling required)
 
-        JSONObject jsonObj = new JSONObject();
-
-        String[] bArray = {"Natural Sciences", "Test"};
-        String[] scheduleArray = {"10:00-13:00", "", "12:00-8:00", "", "7:00-13:00&7:00-8:00"};
 
         try {
-            jsonObj.put("course", "CS302");
-            jsonObj.put("section", 1);
-            jsonObj.put("course_title", "Introduction to Programming");
-            jsonObj.put("credits", 3);
-            jsonObj.put("breadth", bArray);
-            jsonObj.put("professor", "John Doe");
-            jsonObj.put("professorRating", 4.9);
-            jsonObj.put("description", "This is a class where you will learn how to program.");
-            jsonObj.put("schedule", scheduleArray);
-            jsonObj.put("fullCourse", "CS302-001");
-            jsonObj.put("department", "CS");
-            jsonObj.put("number", 302);
+            JSONParser parser = new JSONParser();
+            String parseThis = "[{\"course\":\"CS302\",\"section\":1,\"title\":\"Introduction to Programming\",\"numCredits\":3,\"breadth\":[\"Test\",\"Natural Sciences\"],\"professor\":\"John Doe\",\"professorRating\":4.9,\"description\":\"This is a class where you will learn how to program.\",\"schedule\":[\"12:00-13:00\",\"\",\"12:00-13:00\",\"\",\"12:00-13:00&14:00-15:00\"],\"fullCourse\":\"CS302-001\",\"department\":\"CS\",\"number\":\"302\"}]";
+            JSONArray ja_Courses = (JSONArray) parser.parse(parseThis);
 
-            String breadthString = "";
-            String[] breadthArray = (String[]) jsonObj.get("breadth");
-            for (int i = 0; i < breadthArray.length; i++) {
-                breadthString += breadthArray[i];
-                if (i + 1 < breadthArray.length)
-                    breadthString += ", ";
+            for (int c = 0; c < ja_Courses.size(); c++) {
+                JSONObject joCourse = (JSONObject) ja_Courses.get(c);
+
+                String breadthString = "";
+                JSONArray jBrdth = (JSONArray) joCourse.get("breadth");
+                for (int i = 0; i < jBrdth.size(); i++) {
+                    breadthString += "" + jBrdth.get(i);
+                    if (i + 1 < jBrdth.size())
+                        breadthString += ", ";
+                }
+
+                String sectionNum = ("" + joCourse.get("fullCourse")).split("-")[1];
+
+                String sourceString = "<b>" + joCourse.get("department") + " "
+                        + joCourse.get("number") + "</b>" + " - <i>" + sectionNum + "</i>";
+                course_UID.setText(Html.fromHtml(sourceString));
+
+                course_title.setText("" + joCourse.get("title"));
+                credits.setText("" + joCourse.get("numCredits"));
+                breadth.setText(breadthString);
+                professor.setText("" + joCourse.get("professor"));
+                prof_rating.setText("" + joCourse.get("professorRating"));
+
+                JSONArray jSch = (JSONArray) joCourse.get("schedule");
+                String[] pjs = new String[jSch.size()];
+                for (int i = 0; i < jSch.size(); i++) {
+                    pjs[i] = (String) jSch.get(i);
+                }
+                schedule.setText(parseSchedule(pjs));
+                course_desc.setText("" + joCourse.get("description"));
             }
+        } catch (
+                org.json.simple.parser.ParseException e)
 
-            String sectionNum = jsonObj.getString("fullCourse").split("-")[1];
-
-            String sourceString = "<b>" + jsonObj.getString("department") + " "
-                    + jsonObj.getInt("number") + "</b>" + " - <i>" + sectionNum + "</i>";
-            course_UID.setText(Html.fromHtml(sourceString));
-
-            course_title.setText(jsonObj.getString("course_title"));
-            credits.setText("" + jsonObj.getInt("credits"));
-            breadth.setText(breadthString);
-            professor.setText(jsonObj.getString("professor"));
-            prof_rating.setText("" + jsonObj.getDouble("professorRating"));
-            schedule.setText(parseSchedule((String[]) jsonObj.get("schedule")));
-            //course_desc.setText(jsonObj.getString("description"));
-
-
-            jsonObj.getString("course");
-            jsonObj.getInt("");
-
-        } catch (org.json.JSONException e) {
+        {
             e.printStackTrace();
             return;
         }
@@ -127,5 +126,6 @@ public class CourseSearch extends AppCompatActivity {
         }
         return s;
     }
+
 
 }
