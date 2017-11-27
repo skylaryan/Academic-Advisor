@@ -10,10 +10,8 @@ import org.json.simple.parser.JSONParser;
 import android.text.Html;
 import android.widget.TextView;
 
-import static android.R.attr.description;
 
-
-public class CourseSearch extends AppCompatActivity {
+public class CourseDescription extends AppCompatActivity {
 
     private TextView course_UID, course_title, credits, breadth,
             professor, prof_rating,
@@ -23,7 +21,7 @@ public class CourseSearch extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_search);
+        setContentView(R.layout.activity_course_description);
 
         course_UID = (TextView) findViewById(R.id.course_UID);
         // combines course department, course #, and section #

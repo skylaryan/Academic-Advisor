@@ -23,7 +23,7 @@
         <activity android:name=".UserLogin" />
         <activity android:name=".VerifyUser" />
         <activity android:name=".CreateAccountPassword" />
-        <activity android:name=".CourseSearch"></activity>
+        <activity android:name=".CourseDescription"></activity>
     </application>
 
 </manifest>
