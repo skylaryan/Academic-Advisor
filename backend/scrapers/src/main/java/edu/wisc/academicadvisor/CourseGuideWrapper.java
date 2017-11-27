@@ -21,7 +21,7 @@ public class CourseGuideWrapper {
 
         try {
             
-            Process p = Runtime.getRuntime().exec("python /Users/utkarsh/AcadAdvisor/backend/scrapers/src/main/python/CourseGuideScraper.py");
+            Process p = Runtime.getRuntime().exec("python ~/academicadvisor/backend/scrapers/src/main/python/CourseGuideScraper.py");
             
             BufferedReader stdInput = new BufferedReader(new 
                  InputStreamReader(p.getInputStream()));
