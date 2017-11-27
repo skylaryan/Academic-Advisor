@@ -8,14 +8,15 @@
 
     <TextView
         android:id="@+id/course_UID"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DeptNumberSec#"
         android:layout_marginTop="13dp"
+        android:layout_marginLeft="15dp"
+        android:gravity="center"
         android:textSize="20pt"
-        android:layout_marginStart="13dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true"/>
+
 
     <TextView
         android:id="@+id/course_title"
@@ -23,71 +24,125 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:textSize="8pt"
+        android:textStyle="bold|italic"
         android:text="Course Title"
         android:layout_below="@+id/course_UID"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/credits"
+        android:id="@+id/credits_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Credits: "
+        android:textStyle="bold"
         android:layout_marginTop="12dp"
         android:layout_below="@+id/course_title"
-        android:layout_alignStart="@+id/breadth" />
+        android:layout_alignStart="@+id/breadth_" />
 
     <TextView
-        android:id="@+id/breadth"
+        android:id="@+id/breadth_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Breadth: "
-        android:layout_below="@+id/credits"
+        android:textStyle="bold"
+        android:layout_below="@+id/credits_"
         android:layout_alignStart="@+id/course_UID" />
 
     <TextView
-        android:id="@+id/professor"
+        android:id="@+id/professor_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/breadth"
-        android:layout_below="@+id/breadth"
+        android:layout_alignStart="@+id/breadth_"
+        android:textStyle="bold"
+        android:layout_below="@+id/breadth_"
         android:layout_marginTop="5dp"
         android:text="Professor: " />
 
     <TextView
-        android:id="@+id/prof_rating"
+        android:id="@+id/prof_rating_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/professor"
-        android:layout_below="@+id/professor"
+        android:layout_alignStart="@+id/professor_"
+        android:textStyle="bold"
+        android:layout_below="@+id/professor_"
         android:layout_marginTop="5dp"
         android:text="Professor Rating: " />
 
     <TextView
-        android:id="@+id/schedule"
+        android:id="@+id/schedule_"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/prof_rating"
-        android:layout_below="@+id/prof_rating"
+        android:layout_alignStart="@+id/prof_rating_"
+        android:layout_below="@+id/prof_rating_"
         android:layout_marginTop="5dp"
+        android:textStyle="bold"
         android:text="Schedule: " />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignStart="@+id/schedule"
+        android:layout_alignStart="@+id/schedule_"
         android:layout_below="@+id/schedule"
         android:layout_marginBottom="7dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="10dp"
         android:layout_alignEnd="@+id/course_UID">
 
-        <TextView
-            android:id="@id/course_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="course_description" >
-        </TextView>
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@id/course_desc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="This scrollable course_desc box dynamically adjusts itself below the schedule!\n\n if the course description\n\n\nis really long for some reason\n\n\n\nthen they can always scroll\n\n\n\n\nthis section, and this section\n\n\n\n\nonly!\n\n\n\n\n\n\nLet's see\n\n\n\n\n\nif this works!" >
+            </TextView>
+        </LinearLayout>
+
+
+
     </ScrollView>
+
+    <TextView
+        android:id="@+id/credits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="numCredits"
+        android:layout_above="@+id/breadth_"
+        android:layout_toEndOf="@+id/credits_" />
+
+    <TextView
+        android:id="@+id/breadth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="breadth"
+        android:layout_above="@+id/professor_"
+        android:layout_toEndOf="@+id/breadth_" />
+
+    <TextView
+        android:id="@+id/professor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/professor_"
+        android:layout_toEndOf="@+id/professor_"
+        android:text="prof" />
+
+    <TextView
+        android:id="@+id/prof_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/prof_rating_"
+        android:layout_toEndOf="@+id/prof_rating_"
+        android:text="RMP" />
+
+    <TextView
+        android:id="@+id/schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/schedule_"
+        android:layout_toEndOf="@+id/schedule_"
+        android:text="schedule N/A\nyes\nit\nworks!" />
 
 
 </RelativeLayout>
