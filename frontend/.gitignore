@@ -67,3 +67,6 @@ freeline_project_description.json
 
 .gitignore
 build/android-profile/profile-2017-10-23-18-31-38-925.rawproto
+
+# Mac
+.DS_Store
