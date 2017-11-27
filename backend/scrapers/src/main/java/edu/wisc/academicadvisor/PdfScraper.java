@@ -6,7 +6,7 @@ import java.util.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-public class pdfScraper {
+public class PdfScraper {
 
    public static void main(String args[]) throws IOException {
 	  
