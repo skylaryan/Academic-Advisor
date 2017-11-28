@@ -30,9 +30,9 @@
         android:textColor="#ffffffff"
         tools:layout_editor_absoluteX="108dp"
         tools:layout_editor_absoluteY="359dp"
-        android:layout_below="@+id/login"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp" />
+        android:layout_alignBaseline="@+id/login"
+        android:layout_alignBottom="@+id/login"
+        android:layout_alignEnd="@+id/academicadvisor" />
 
     <Button
         android:id="@+id/login"
@@ -43,18 +43,30 @@
         android:textColor="#ffffffff"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="283dp"
-        android:layout_marginTop="34dp"
         android:layout_below="@+id/academicadvisor"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/academicadvisor"
+        android:layout_marginTop="10dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_below="@+id/createanaccount"
+        android:layout_below="@+id/searchCourses"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/searchCourses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#e12525"
+        android:textColor="#ffffffff"
+        android:text="Search Sample courses"
+        android:onClick="launchCourseSearchActivity"
+        android:layout_below="@+id/createanaccount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp" />
 
 </RelativeLayout>
