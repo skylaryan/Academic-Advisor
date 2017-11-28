@@ -10,6 +10,7 @@ import org.json.simple.parser.JSONParser;
 import android.text.Html;
 import android.widget.TextView;
 
+import android.content.Intent;
 
 public class CourseDescription extends AppCompatActivity {
 
@@ -38,11 +39,12 @@ public class CourseDescription extends AppCompatActivity {
 
         try {
             JSONParser parser = new JSONParser();
-            String parseThis = "[{\"course\":\"CS302\",\"section\":1,\"title\":\"Introduction to Programming\",\"numCredits\":3,\"breadth\":[\"Test\",\"Natural Sciences\"],\"professor\":\"John Doe\",\"professorRating\":4.9,\"description\":\"This is a class where you will learn how to program.\",\"schedule\":[\"12:00-13:00\",\"\",\"12:00-13:00\",\"\",\"12:00-13:00&14:00-15:00\"],\"fullCourse\":\"CS302-001\",\"department\":\"CS\",\"number\":\"302\"}]";
-            JSONArray ja_Courses = (JSONArray) parser.parse(parseThis);
+            String testInput = "[{\"course\":\"CS302\",\"section\":1,\"title\":\"Introduction to Programming\",\"numCredits\":3,\"breadth\":[\"Test\",\"Natural Sciences\"],\"professor\":\"John Doe\",\"professorRating\":4.9,\"description\":\"This is a class where you will learn how to program.\",\"schedule\":[\"12:00-13:00\",\"\",\"12:00-13:00\",\"\",\"12:00-13:00&14:00-15:00\"],\"fullCourse\":\"CS302-001\",\"department\":\"CS\",\"number\":\"302\"}]";
+            final String cDataIn = getIntent().getStringExtra("jsonCourseData");
+            /**JSONArray ja_Courses = (JSONArray) parser.parse(cDataIn);
 
-            for (int c = 0; c < ja_Courses.size(); c++) {
-                JSONObject joCourse = (JSONObject) ja_Courses.get(c);
+            for (int c = 0; c < ja_Courses.size(); c++) {*/
+                JSONObject joCourse = (JSONObject) parser.parse(cDataIn);
 
                 String breadthString = "";
                 JSONArray jBrdth = (JSONArray) joCourse.get("breadth");
@@ -71,7 +73,7 @@ public class CourseDescription extends AppCompatActivity {
                 }
                 schedule.setText(parseSchedule(pjs));
                 course_desc.setText("" + joCourse.get("description"));
-            }
+            //}
         } catch (
                 org.json.simple.parser.ParseException e)
 
