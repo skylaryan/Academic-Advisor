@@ -17,18 +17,14 @@ Instructions:
 
 For the API,
 1. Open IntelliJ
-2. Click Open for an existing project
+2. Click Import Project
 3. Navigate to the directory of "academicadvisor/backend/api" from the repo you cloned and click Open
-4. Click File | New | Module from Existing Sources
-5. Navigate to "academicadvisor/backend/api" and click Open
-6. Make sure "Create module from existing sources" is selected and click Next
-7. Make sure "academicadvisor/backend/api/src/main/java" and "academicadvisor/backend/api/src/test/java" are both selected and click Next
-8. Keep clicking Next past every screen continuing to ensure those two are selected
-9. Finally when prompted press Finish
-10. Click File | Project Structure | Project and make sure you have specified the path to your Java SDK in "Project SDK"
-11. Click Apply
-12. Click Modules listed under the current Project menu
-13. Select both java and test which were added before and right click and select Move Module to Group > New Top Level Group...
-14. Click Apply
-15. Click OK
-16. Build | Rebuild Project
+4. Make sure "Create module from existing sources" is selected and click Next
+5. Edit the project the name if you wish and click Next
+6. Make sure "academicadvisor/backend/api/src/main/java" and "academicadvisor/backend/api/src/test/java" are both selected and click Next
+7. Make sure "gradle-wrapper" is selected from the library and click Next
+8. Make sure "academicadvisor/backend/api/src/main/java" and "academicadvisor/backend/api/src/test/java" are both selected and click Next
+9. Select the path to your Java SDK for Project SDK and click Next
+10. Click Finish
+11. Build | Rebuild Project
+12. Run Application
