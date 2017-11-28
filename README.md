@@ -1,5 +1,6 @@
 # academicadvisor
 Iteration 1 <11/1/2017> 
+Iteration 2 <11/27/2017>
 
 Instructions:
 1.	Logon to GitHub and search for “tyleroconnell/adademicadvisor”; 
