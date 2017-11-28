@@ -1,5 +1,3 @@
-package main.java.edu.wisc.academicadvisor;
-
 import java.io.IOException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -13,13 +11,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class RmpScraper {
-    public static void main(String[] args) throws IOException
+    public static String main(String[] args) throws IOException
     {
         
         
         String[] arr = new String[2];
-        arr[0]="Elizabeth Kelly";
-        arr[1]="Charles Dill";
+        arr[0]=args[0];
+        arr[1]=args[1];
         JSONObject json = new JSONObject();
         for(int i=0;i<arr.length;i++)
         {
@@ -70,7 +68,7 @@ public class RmpScraper {
         json.writeJSONString(out);
         
         String jsonText = out.toString();
-        System.out.print(jsonText);
+        return jsonText;
         
     }
     
