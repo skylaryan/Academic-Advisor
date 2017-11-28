@@ -16,6 +16,8 @@ Instructions:
 10. The output of the CourseGuideScraper is in the data.txt file in the out folder.
 10. For RmpScraper, add the jar's for the jsoup and simple json libraries. 
 11. For PdfScraper, add the PDFBox jar. Also make sure the Course Grade Distribution documents are in the same directory as the program.
+12. The CourseGuideTest.py needs to be in the same directory as the CourseGuideScraper.py. Run the CourseGuideTest.py.
+13. The PdfScraper_Test and RmpScraperTest can be run directly.
 
 For the API,
 1. Open IntelliJ
