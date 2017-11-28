@@ -17,7 +17,7 @@ public class PdfScraper_Test {
 		File [] files = new File[1];
 		files [0] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-164-193.pdf");		//files [1] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-test-files/Stats_distribs_2015-2016Fall-164-193-2-2.pdf");
 		
-		String [] expectedOutput = { "20"};
+		String [] expectedOutput = {"20", "120", "23", "43.5","Course", "Total", "First", "COM", "CHEM"};
 		  
 		String [] rawOutput = pdfScraper2.getRawData(files); 
 		
