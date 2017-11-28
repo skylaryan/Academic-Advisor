@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 
-public class pdfScraper2_Test {
+public class PdfScraper_Test {
 
 	@Test
 	public void test() throws FileNotFoundException, IOException  {
