@@ -3,6 +3,7 @@ package main.java.edu.wisc.academicadvisor;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import org.junit.Before;
 import org.junit.Test;
 //import org.junit.runner.RunWith;
 
@@ -10,15 +11,30 @@ import static org.junit.Assert.*;
 
 public class RmpScraperTest {
 
+	
+//	ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	
+/*	@Before
+	public void setUpStreams() {
+	    System.setOut(new PrintStream(outContent));
+	}
+*/	    
 	@Test
 	public void testRmpScraper() throws Exception {
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
+//		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+//		System.setOut(new PrintStream(outContent));
 		String[] scrapeArgs = new String[2];
-		scrapeArgs[0] = "Elizabeth Kelly";
-		scrapeArgs[1] = "Charles Dill";
-		RmpScraper.main(scrapeArgs);
-		String expectedOutput  = "{\"Elizabeth Kelly\":[3.3,3.6,[\"Tough Grader (72)\",\"Skip class? You won't pass. (55)\",\"LECTURE HEAVY (44)\",\"TEST HEAVY (20)\",\"LOTS OF HOMEWORK (16)\",\"Respected (15)\",\"Caring (15)\",\"GRADED BY FEW THINGS (13)\",\"Get ready to read (12)\",\"Clear grading criteria (10)\",\"Amazing lectures (9)\",\"ACCESSIBLE OUTSIDE CLASS (\",\"Inspirational (6)\",\"Hilarious (3)\",\"Participation matters (3)\",\"Gives good feedback (3)\"]],\"Charles Dill\":[4.2,2.0,[\"EXTRA CREDIT (6)\",\"Clear grading criteria (3)\",\"Skip class? You won't pass. (3)\",\"Amazing lectures (3)\",\"Inspirational (3)\",\"Respected (2)\",\"Participation matters (1)\",\"ACCESSIBLE OUTSIDE CLASS (1)\"]]}";
-		assertEquals(expectedOutput, outContent.toString());
+//		System.out.println("sorry i'm reaching over you Skylar 1");
+		scrapeArgs[0] = "Jignesh Patel";
+		scrapeArgs[1] = "Sally Peterson";
+//		System.out.println("sorry i'm reaching over you Skylar 2");
+		String output = RmpScraper.main(scrapeArgs);
+//		System.out.println("sorry i'm reaching over you Skylar 3");
+		String expectedOutput  = "{\"Jignesh Patel\":[2.6,4.1,[]],\"Sally Peterson\":[3.2,2.9,[]]}";
+//		System.out.println("sorry i'm reaching over you Skylar 4");
+//		System.out.println(output);
+		assertEquals(expectedOutput, output);
+//		System.out.println("sorry i'm reaching over you Skylar");
+//		System.out.println("THIS IS WHAT WE WANT" + outContent.toString());
 	}
 }
