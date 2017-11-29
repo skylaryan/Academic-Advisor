@@ -61,7 +61,7 @@ public class CreateAccountPassword extends AppCompatActivity {
                     // if(special>=1&&loCount>=1&&upCount>=1&&digit>=1){
                     if(loCount>=1&&upCount>=1&&digit>=1){
                         passwordToStore = password;
-                        startActivity(new Intent(CreateAccountPassword.this, CourseSearch.class));
+                        startActivity(new Intent(CreateAccountPassword.this, CourseSearchResults.class));
                     }
                     else {
                         if(loCount < 1){

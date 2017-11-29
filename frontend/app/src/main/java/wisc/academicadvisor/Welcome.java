@@ -31,6 +31,6 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void launchCourseSearchActivity(View v){
-        startActivity(new Intent(Welcome.this, CourseSearch.class));
+        startActivity(new Intent(Welcome.this, CourseSearchResults.class));
     }
 }

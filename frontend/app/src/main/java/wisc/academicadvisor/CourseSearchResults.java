@@ -3,13 +3,11 @@ package wisc.academicadvisor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.simple.JSONObject;
@@ -20,7 +18,7 @@ import android.text.Html;
 
 import java.util.ArrayList;
 
-public class CourseSearch extends AppCompatActivity {
+public class CourseSearchResults extends AppCompatActivity {
 
     private ArrayList<Spanned> a_ClassList;
 
@@ -84,8 +82,8 @@ public class CourseSearch extends AppCompatActivity {
         courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // Remove interest from list if clicked
-                Toast.makeText(CourseSearch.this, a_ClassList.get(position).toString() + " was selected.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CourseSearch.this, CourseDescription.class);
+                Toast.makeText(CourseSearchResults.this, a_ClassList.get(position).toString() + " was selected.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CourseSearchResults.this, CourseDescription.class);
                 intent.putExtra("jsonCourseData", ja_Courses.get(position).toString());
                 System.out.println(ja_Courses.get(position).toString());
                 startActivity(intent);
