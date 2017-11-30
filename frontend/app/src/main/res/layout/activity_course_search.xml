@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="wisc.academicadvisor.CourseSearchResults">
+
+    <TextView
+        android:id="@+id/course_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course Search"
+        android:layout_marginTop="21dp"
+        android:textSize="20pt"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- <item android:id="@+id/search"
+        android:title="Course Search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp" /> -->
+
+    <ImageView
+        android:id="@+id/rectCourseSearch"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:layout_alignTop="@+id/courseSearch"
+        android:layout_above="@+id/courseList"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignLeft="@+id/courseSearch"
+        android:layout_alignStart="@+id/courseSearch"
+        android:layout_alignRight="@+id/courseSearch"
+        android:layout_alignEnd="@+id/courseSearch" />
+
+    <SearchView
+        android:id="@+id/courseSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search here"
+        android:layout_marginTop="104dp"
+        android:layout_below="@+id/breadth"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp">
+    </SearchView>
+
+    <!-- <TextView
+        android:id="@+id/generalTitle"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="General Search:"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/course_search"
+        android:layout_centerHorizontal="true"
+        android:textSize="7pt"/> -->
+
+    <ListView
+        android:id="@+id/courseList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/courseSearch"
+        android:layout_alignLeft="@+id/rectCourseSearch"
+        android:layout_alignStart="@+id/rectCourseSearch"
+        android:layout_alignRight="@+id/rectCourseSearch"
+        android:layout_alignEnd="@+id/rectCourseSearch"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"/>
+
+    <TextView
+        android:id="@+id/breadth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breadth"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/course_search"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
+        android:textSize="8pt"/>
+
+    <Spinner
+        android:id="@+id/breadthSpinner"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/breadth"
+        android:layout_toRightOf="@+id/breadth"
+        android:layout_toEndOf="@+id/breadth"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="25pt"/>
+    <!-- android:background="@android:color/transparent" -->
+
+    <TextView
+        android:id="@+id/courseNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/breadth"
+        android:layout_alignStart="@+id/breadth"
+        android:layout_below="@+id/breadth"
+        android:layout_marginTop="15dp"
+        android:textSize="8pt"
+        android:text="Course Number"/>
+
+    <EditText
+        android:id="@+id/courseNumberEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:layout_alignBaseline="@+id/courseNum"
+        android:layout_alignBottom="@+id/courseNum"
+        android:layout_toRightOf="@+id/courseNum"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="30pt"
+        android:layout_alignRight="@+id/course_search"
+        android:layout_alignEnd="@+id/course_search" />
+
+
+</RelativeLayout>
