@@ -35,51 +35,99 @@ public class CourseDescription extends AppCompatActivity {
 
     /**
      * URL url = null;
-     String line = "";
-     try {
-     url = new URL("http://tyleroconnell.com:8080/courses");
-     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-     try {
-     BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-     while ((line = rd.readLine()) != null) {
-     JSresponse += line + "\n";
-     numLines++;
-     }
-     } finally {
-     urlConnection.disconnect();
-     }
-     } catch (Exception e) {
-     e.printStackTrace();
-     }
-
-     return JSresponse;
+     * String line = "";
+     * try {
+     * url = new URL("http://tyleroconnell.com:8080/courses");
+     * HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+     * try {
+     * BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+     * while ((line = rd.readLine()) != null) {
+     * JSresponse += line + "\n";
+     * numLines++;
+     * }
+     * } finally {
+     * urlConnection.disconnect();
+     * }
+     * } catch (Exception e) {
+     * e.printStackTrace();
+     * }
+     * <p>
+     * return JSresponse;
      */
 
-    protected class readServerPage extends AsyncTask<String, Void, String>{
+    protected class readServerPage extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... in) {
-            DefaultHttpClient client = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet("http://tyleroconnell.com:8080/courses");
             try {
-                HttpResponse execute = client.execute(httpGet);
-                InputStream content = execute.getEntity().getContent();
 
-                BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-                StringBuilder sb = new StringBuilder();
-                String line = "";
-                while ((line = buffer.readLine()) != null) {
-                    sb.append(line);
-                    numLines++;
+                URL url = null;
+                try {
+                    url = new URL("http://tyleroconnell.com:8080/courses");
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    try {
+                        BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        String content = "", line;
+                        while ((line = rd.readLine()) != null) {
+                            content += line + "\n";
+                        }
+                        //System.out.println(content);
+
+                        JSONParser parser = new JSONParser();
+                        //final String cDataIn = getIntent().getStringExtra("jsonCourseData");
+
+                        final JSONObject joCourse;
+                        JSONArray jaCourse = (JSONArray) parser.parse(content);
+                        joCourse = (JSONObject) jaCourse.get(0);
+
+                        final String breadthString;
+                        String bs = "";
+                        JSONArray jBrdth = (JSONArray) joCourse.get("breadth");
+                        for (int i = 0; i < jBrdth.size(); i++) {
+                            bs += "" + jBrdth.get(i);
+                            if (i + 1 < jBrdth.size())
+                                bs += ", ";
+                        }
+                        breadthString = bs;
+
+                        String sectionNum = ("" + joCourse.get("fullCourse")).split("-")[1];
+
+                        final String sourceString = "<b>" + joCourse.get("department") + " "
+                                + joCourse.get("number") + "</b>" + " - <i>" + sectionNum + "</i>";
+
+                        course_UID.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                course_UID.setText(Html.fromHtml(sourceString));
+                                course_title.setText("" + joCourse.get("title"));
+                                credits.setText("" + joCourse.get("numCredits"));
+                                breadth.setText(breadthString);
+                                professor.setText("" + joCourse.get("professor"));
+                                prof_rating.setText("" + joCourse.get("professorRating"));
+
+                                JSONArray jSch = (JSONArray) joCourse.get("schedule");
+                                String[] pjs = new String[jSch.size()];
+                                for (int i = 0; i < jSch.size(); i++) {
+                                    pjs[i] = (String) jSch.get(i);
+                                }
+                                schedule.setText(parseSchedule(pjs));
+                                course_desc.setText("" + joCourse.get("description"));
+                            }
+
+                        });
+
+
+                    } finally {
+                        urlConnection.disconnect();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                JSresponse = sb.toString();
-                content.close();
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            return JSresponse;
+            return null;
         }
     }
 
@@ -99,62 +147,59 @@ public class CourseDescription extends AppCompatActivity {
         course_desc = (TextView) findViewById(R.id.course_desc);
 
         /**String jsCheck = "";
-        if (JSresponse.length() == 0)
-            jsCheck = "\nWebPage Reader returns NULL!";
-        course_desc.setText("NumLines: " + numLines + jsCheck);*/
-
-
+         if (JSresponse.length() == 0)
+         jsCheck = "\nWebPage Reader returns NULL!";
+         course_desc.setText("NumLines: " + numLines + jsCheck);*/
 
 
         readServerPage rSp = new readServerPage();
         rSp.execute();
 
-        try {
-            JSONParser parser = new JSONParser();
-            final String cDataIn = getIntent().getStringExtra("jsonCourseData");
+        /**try {
+         JSONParser parser = new JSONParser();
+         final String cDataIn = getIntent().getStringExtra("jsonCourseData");
 
-            JSONObject joCourse;
-            if (JSresponse.length() == 0)
-                joCourse = (JSONObject) parser.parse(cDataIn);
-            else
-                joCourse = (JSONObject) parser.parse(JSresponse);
+         JSONObject joCourse;
+         if (JSresponse.length() == 0)
+         joCourse = (JSONObject) parser.parse(cDataIn);
+         else
+         joCourse = (JSONObject) parser.parse(JSresponse);
 
-            String breadthString = "";
-            JSONArray jBrdth = (JSONArray) joCourse.get("breadth");
-            for (int i = 0; i < jBrdth.size(); i++) {
-                breadthString += "" + jBrdth.get(i);
-                if (i + 1 < jBrdth.size())
-                    breadthString += ", ";
-            }
+         String breadthString = "";
+         JSONArray jBrdth = (JSONArray) joCourse.get("breadth");
+         for (int i = 0; i < jBrdth.size(); i++) {
+         breadthString += "" + jBrdth.get(i);
+         if (i + 1 < jBrdth.size())
+         breadthString += ", ";
+         }
 
-            String sectionNum = ("" + joCourse.get("fullCourse")).split("-")[1];
+         String sectionNum = ("" + joCourse.get("fullCourse")).split("-")[1];
 
-            String sourceString = "<b>" + joCourse.get("department") + " "
-                    + joCourse.get("number") + "</b>" + " - <i>" + sectionNum + "</i>";
+         String sourceString = "<b>" + joCourse.get("department") + " "
+         + joCourse.get("number") + "</b>" + " - <i>" + sectionNum + "</i>";
 
-            course_UID.setText(Html.fromHtml(sourceString));
-            course_title.setText("" + joCourse.get("title"));
-            credits.setText("" + joCourse.get("numCredits"));
-            breadth.setText(breadthString);
-            professor.setText("" + joCourse.get("professor"));
-            prof_rating.setText("" + joCourse.get("professorRating"));
+         course_UID.setText(Html.fromHtml(sourceString));
+         course_title.setText("" + joCourse.get("title"));
+         credits.setText("" + joCourse.get("numCredits"));
+         breadth.setText(breadthString);
+         professor.setText("" + joCourse.get("professor"));
+         prof_rating.setText("" + joCourse.get("professorRating"));
 
-            JSONArray jSch = (JSONArray) joCourse.get("schedule");
-            String[] pjs = new String[jSch.size()];
-            for (int i = 0; i < jSch.size(); i++) {
-                pjs[i] = (String) jSch.get(i);
-            }
-            schedule.setText(parseSchedule(pjs));
+         JSONArray jSch = (JSONArray) joCourse.get("schedule");
+         String[] pjs = new String[jSch.size()];
+         for (int i = 0; i < jSch.size(); i++) {
+         pjs[i] = (String) jSch.get(i);
+         }
+         schedule.setText(parseSchedule(pjs));
 
-            course_desc.setText("" + joCourse.get("description"));
-        } catch (
-                org.json.simple.parser.ParseException e)
+         course_desc.setText("" + joCourse.get("description"));
+         } catch (
+         org.json.simple.parser.ParseException e)
 
-        {
-            e.printStackTrace();
-            return;
-        }
-
+         {
+         e.printStackTrace();
+         return;
+         }*/
     }
 
     public String parseSchedule(String[] sch) {
