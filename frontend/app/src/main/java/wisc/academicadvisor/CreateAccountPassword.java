@@ -68,7 +68,7 @@ public class CreateAccountPassword extends AppCompatActivity {
                     if (c >= 33 && c <= 46 || c == 64) {
                         special++;
                     }
-                }if (loCount >= 1 && upCount >= 1 && digit >= 1 && passLength > 8) {
+                }if (loCount >= 1 && upCount >= 1 && digit >= 1 && passLength >= 8) {
                     final TextView pwHint = (TextView) findViewById(R.id.password_hint);
                     pwHint.setText("Password meets requirements!");
 
