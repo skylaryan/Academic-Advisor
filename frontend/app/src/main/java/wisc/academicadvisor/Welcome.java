@@ -30,7 +30,7 @@ public class Welcome extends AppCompatActivity {
         });
     }
 
-    public void launchCourseSearchActivity(View v){
+    public void launchCourseSearchResultsActivity(View v){
         startActivity(new Intent(Welcome.this, CourseSearchResults.class));
     }
 }

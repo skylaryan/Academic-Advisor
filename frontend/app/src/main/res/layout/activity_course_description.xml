@@ -1,160 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topLevel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="wisc.academicadvisor.CourseDescription">
 
-    <TextView
-        android:id="@+id/course_UID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DeptNumberSec#"
-        android:layout_marginTop="13dp"
-        android:layout_marginLeft="15dp"
-        android:gravity="center"
-        android:textSize="22pt"
-        android:layout_centerHorizontal="true"/>
-
-
-    <TextView
-        android:id="@+id/course_title"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:textSize="12pt"
-        android:textStyle="bold|italic"
-        android:text="Course Title"
-        android:gravity="center"
-        android:layout_below="@+id/course_UID"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true" />
 
-    <TextView
-        android:id="@+id/credits_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Credits: "
-        android:textStyle="bold"
-        android:textSize="7pt"
-        android:layout_marginTop="12dp"
-        android:layout_below="@+id/course_title"
-        android:layout_alignStart="@+id/breadth_" />
-
-    <TextView
-        android:id="@+id/breadth_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="7pt"
-        android:text="Breadth: "
-        android:textStyle="bold"
-        android:layout_below="@+id/credits_"
-        android:layout_alignStart="@+id/course_UID" />
-
-    <TextView
-        android:id="@+id/professor_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/breadth_"
-        android:textStyle="bold"
-        android:layout_below="@+id/breadth_"
-        android:textSize="7pt"
-        android:layout_marginTop="5dp"
-        android:text="Professor: " />
-
-    <TextView
-        android:id="@+id/prof_rating_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/professor_"
-        android:textStyle="bold"
-        android:layout_below="@+id/professor_"
-        android:layout_marginTop="5dp"
-        android:textSize="7pt"
-        android:text="Professor Rating: " />
-
-    <TextView
-        android:id="@+id/schedule_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/prof_rating_"
-        android:layout_below="@+id/prof_rating_"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:textSize="7pt"
-        android:text="Schedule: " />
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignStart="@+id/schedule_"
-        android:layout_below="@+id/schedule"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="2dp"
-        android:layout_alignEnd="@+id/course_UID">
+        android:id="@id/subLevel"
+        >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/course_UID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="13dp"
+            android:gravity="center"
+            android:text="DeptNumberSec#"
+            android:textSize="22pt" />
+
+
+        <TextView
+            android:id="@+id/course_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/course_UID"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="Course Title"
+            android:textSize="12pt"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/credits_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/breadth_"
+            android:layout_below="@+id/course_title"
+            android:layout_marginTop="12dp"
+            android:text="Credits: "
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/breadth_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/course_UID"
+            android:layout_below="@+id/credits_"
+            android:layout_marginTop="5dp"
+            android:text="Breadth: "
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/professor_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/breadth_"
+            android:layout_below="@+id/breadth_"
+            android:layout_marginTop="5dp"
+            android:text="Professor: "
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/prof_rating_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/professor_"
+            android:layout_below="@+id/professor_"
+            android:layout_marginTop="5dp"
+            android:text="Professor Rating: "
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/schedule_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/prof_rating_"
+            android:layout_below="@+id/prof_rating_"
+            android:layout_marginTop="5dp"
+            android:text="Schedule: "
+            android:textSize="7pt"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_alignEnd="@+id/course_UID"
+            android:layout_alignStart="@+id/schedule_"
+            android:layout_below="@+id/schedule"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@id/course_desc"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="7pt"
-                android:text="This scrollable course_desc box dynamically adjusts itself below the schedule!\n\n if the course description\n\n\nis really long for some reason\n\n\n\nthen they can always scroll\n\n\n\n\nthis section, and this section\n\n\n\n\nonly!\n\n\n\n\n\n\nLet's see\n\n\n\n\n\nif this works!" >
-            </TextView>
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@id/course_desc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This scrollable course_desc box dynamically adjusts itself below the schedule!\n\n if the course description\n\n\nis really long for some reason\n\n\n\nthen they can always scroll\n\n\n\n\nthis section, and this section\n\n\n\n\nonly!\n\n\n\n\n\n\nLet's see\n\n\n\n\n\nif this works!"
+                    android:textSize="8pt" />
+            </LinearLayout>
 
 
+        </ScrollView>
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/credits"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/breadth_"
+            android:layout_toEndOf="@+id/credits_"
+            android:text="numCredits"
+            android:textSize="7pt" />
 
-    <TextView
-        android:id="@+id/credits"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="numCredits"
-        android:layout_above="@+id/breadth_"
-        android:textSize="7pt"
-        android:layout_toEndOf="@+id/credits_" />
+        <TextView
+            android:id="@+id/breadth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/professor_"
+            android:layout_toEndOf="@+id/breadth_"
+            android:text="breadth"
+            android:textSize="7pt" />
 
-    <TextView
-        android:id="@+id/breadth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="breadth"
-        android:layout_above="@+id/professor_"
-        android:textSize="7pt"
-        android:layout_toEndOf="@+id/breadth_" />
+        <TextView
+            android:id="@+id/professor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/professor_"
+            android:layout_toEndOf="@+id/professor_"
+            android:text="prof"
+            android:textSize="7pt" />
 
-    <TextView
-        android:id="@+id/professor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/professor_"
-        android:layout_toEndOf="@+id/professor_"
-        android:textSize="7pt"
-        android:text="prof" />
+        <TextView
+            android:id="@+id/prof_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/prof_rating_"
+            android:layout_toEndOf="@+id/prof_rating_"
+            android:text="RMP"
+            android:textSize="7pt" />
 
-    <TextView
-        android:id="@+id/prof_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/prof_rating_"
-        android:layout_toEndOf="@+id/prof_rating_"
-        android:textSize="7pt"
-        android:text="RMP" />
+        <TextView
+            android:id="@+id/schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/schedule_"
+            android:layout_toEndOf="@+id/schedule_"
+            android:text="schedule here"
+            android:textSize="7pt" />
 
-    <TextView
-        android:id="@+id/schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/schedule_"
-        android:layout_toEndOf="@+id/schedule_"
-        android:textSize="7pt"
-        android:text="schedule N/A\nyes\nit\nworks!" />
 
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -2,4 +2,5 @@
 <resources>
     <item name="course_desc" type="id" />
     <item name="courseList" type="id" />
+    <item name="subLevel" type="id">subLevel</item>
 </resources>

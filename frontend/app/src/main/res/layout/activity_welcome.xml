@@ -64,7 +64,7 @@
         android:backgroundTint="#e12525"
         android:textColor="#ffffffff"
         android:text="Search Sample courses"
-        android:onClick="launchCourseSearchActivity"
+        android:onClick="launchCourseSearchResultsActivity"
         android:layout_below="@+id/createanaccount"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp" />
