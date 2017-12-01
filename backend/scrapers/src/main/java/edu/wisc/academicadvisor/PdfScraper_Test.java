@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+package main.java.edu.wisc.academicadvisor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 
 public class PdfScraper_Test {
@@ -15,11 +15,12 @@ public class PdfScraper_Test {
 	public void test() throws FileNotFoundException, IOException  {
 		
 		File [] files = new File[1];
-		files [0] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-164-193.pdf");		//files [1] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-test-files/Stats_distribs_2015-2016Fall-164-193-2-2.pdf");
+		files [0] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-164-193.pdf");		//files [1] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-test-files/Stats_distribs_2015-2016Fall-164-193-2-2.pdf");
 		
 		String [] expectedOutput = {"20", "120", "23", "43.5","Course", "Total", "First", "COM", "CHEM"};
-		  
-		String [] rawOutput = pdfScraper2.getRawData(files); 
+
+		PdfScraper pdfScraper = new PdfScraper();
+		String [] rawOutput = pdfScraper.getRawData(files);
 		
 		for(int i = 0; i < rawOutput.length; i++ ){
 			if(rawOutput[i] == null) System.out.println("Wrong");

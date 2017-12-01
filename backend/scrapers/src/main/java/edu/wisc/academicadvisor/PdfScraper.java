@@ -1,6 +1,7 @@
+package main.java.edu.wisc.academicadvisor;
+
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -8,16 +9,36 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 public class PdfScraper {
 
+	public String[] getRawData(File[] files) {
+		String[] ret = new String[files.length];
+		try {
+
+			for (int i = 0; i < files.length; i++) {
+				//Loading an existing document
+				PDDocument document = PDDocument.load(files[i]);
+
+				//Instantiate PDFTextStripper class
+				PDFTextStripper pdfStripper = new PDFTextStripper();
+
+				//Retrieving text from PDF document
+				ret[i] = pdfStripper.getText(document);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return ret;
+	}
+
    public static void main(String args[]) throws IOException {
 	  
 	  //generate the array of relevant grade distribution files 
 	  File [] files = new File[6];
-	  files [0] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-164-193.pdf");
-	  files [1] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-194-223.pdf");
-	  files [2] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-224-253.pdf");
-	  files [3] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-254-283.pdf");
-	  files [4] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-284-313.pdf");
-	  files [5] = new File("F:/UW-Madison/Stats_distribs_2015-2016Fall/Stats_distribs_2015-2016Fall-314-339.pdf");
+	  files [0] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-164-193.pdf");
+	  files [1] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-194-223.pdf");
+	  files [2] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-224-253.pdf");
+	  files [3] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-254-283.pdf");
+	  files [4] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-284-313.pdf");
+	  files [5] = new File("/Users/toconnell/Dropbox/development/school/cs506/academicadvisor/backend/scrapers/src/main/java/edu/wisc/academicadvisor/Stats_distribs_2015-2016Fall-314-339.pdf");
 	  
 	  
       Map<String, double []> gradeDistribution = new HashMap<String, double []>();

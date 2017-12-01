@@ -1,3 +1,5 @@
+/*package main.java.edu.wisc.academicadvisor;
+
 import java.io.IOException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -74,3 +76,4 @@ public class RmpScraper {
     
 }
 
+*/

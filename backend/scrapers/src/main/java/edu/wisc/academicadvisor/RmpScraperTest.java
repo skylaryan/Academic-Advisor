@@ -1,4 +1,4 @@
-package main.java.edu.wisc.academicadvisor;
+/*package main.java.edu.wisc.academicadvisor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -18,7 +18,7 @@ public class RmpScraperTest {
 	public void setUpStreams() {
 	    System.setOut(new PrintStream(outContent));
 	}
-*/	    
+*/	/*
 	@Test
 	public void testRmpScraper() throws Exception {
 //		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -38,3 +38,4 @@ public class RmpScraperTest {
 //		System.out.println("THIS IS WHAT WE WANT" + outContent.toString());
 	}
 }
+*/
