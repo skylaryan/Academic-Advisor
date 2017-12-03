@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/tv_dept"
-            android:layout_below="@+id/editText"
+            android:layout_below="@+id/dept_entry"
             android:layout_marginTop="17dp"
             android:text="Course Number:"
             android:textSize="8pt" />
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/courseNum"
             android:layout_alignBottom="@+id/courseNum"
-            android:layout_alignEnd="@+id/editText"
+            android:layout_alignEnd="@+id/dept_entry"
             android:layout_marginLeft="5pt"
             android:layout_toRightOf="@+id/courseNum"
             android:ems="10"
@@ -54,7 +54,7 @@
             android:textSize="8pt" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/dept_entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_dept"
@@ -94,7 +94,7 @@
             android:text="SEARCH"
 
             android:textColor="#ffffffff"
-            android:onClick="launchCourseSearchResultsActivity"
+            android:onClick="launchURL"
             android:layout_below="@+id/gpa_seekBar"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
@@ -115,10 +115,10 @@
             android:id="@+id/biological_sciences"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Biological Sciences"
+            android:layout_alignStart="@+id/humanities"
             android:layout_below="@+id/humanities"
-            android:layout_alignStart="@+id/humanities" />
+            android:layout_marginTop="15dp"
+            android:text="Biological Science" />
 
         <CheckBox
             android:id="@+id/humanities"
@@ -213,7 +213,7 @@
             android:layout_alignStart="@+id/textView2" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/profEntry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

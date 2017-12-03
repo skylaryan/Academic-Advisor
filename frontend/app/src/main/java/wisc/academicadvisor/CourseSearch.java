@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SearchView;
@@ -24,7 +25,10 @@ import java.util.ArrayList;
 
 public class CourseSearch extends AppCompatActivity {
 
-    private String[] credits;
+    private String department, number, credits, professor, professorRating;
+    private String url;
+    private Spinner credit_spinner;
+    private SeekBar avgGPA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,38 +38,19 @@ public class CourseSearch extends AppCompatActivity {
         // make it so editText doesn't pop up immediately
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        final Spinner creditSpinner = (Spinner) findViewById(R.id.credits_spinner);
+        credit_spinner = (Spinner) findViewById(R.id.credits_spinner);
 
         // all breadth options for spinnger (maybe add Ethnic Study (not a breadth option on course guide))
-        credits = new String[]
-                {"-----N/A-----","      1      ", "      2      ", "      3      ", "      4      ",
+        String[] credits = new String[]
+                {"-----N/A-----", "      1      ", "      2      ", "      3      ", "      4      ",
                         "      5      ", "      6      ", "      7      "};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
                 R.layout.spinner_item, credits);
         adapterSpinner.setDropDownViewResource(R.layout.spinner_dropdown);
-        creditSpinner.setAdapter(adapterSpinner);
+        credit_spinner.setAdapter(adapterSpinner);
 
-        final RatingBar profRating = (RatingBar) findViewById(R.id.prof_rating_bar);
-
-        final CheckBox humanities = (CheckBox) findViewById(R.id.humanities);
-
-        humanities.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (humanities.isChecked()){
-                    String credits = creditSpinner.getSelectedItem().toString().trim();
-                    if (creditSpinner.getSelectedItemPosition() == 0)
-                        credits = "No ";
-                    Toast.makeText(CourseSearch.this, credits + " credits selected!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(CourseSearch.this, profRating.getRating() + " professor rating", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        SeekBar avgGPA = (SeekBar) findViewById(R.id.gpa_seekBar);
-        final TextView gpaText = (TextView) findViewById(R.id.avgGPA_text);
+        avgGPA = (SeekBar) findViewById(R.id.gpa_seekBar);
+        final TextView gpaTextDisplay = (TextView) findViewById(R.id.avgGPA_text);
 
         avgGPA.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -80,23 +65,101 @@ public class CourseSearch extends AppCompatActivity {
             }
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 String gpa = String.format("%.02f", progress / 100.0);
-                gpaText.setText("Average GPA: " + gpa + " / 4.00");
+                gpaTextDisplay.setText("Average GPA: " + gpa + " / 4.00");
             }
 
         });
 
-
-
-
-
-
     }
 
-    public void launchCourseSearchResultsActivity(View v){
+    public void launchURL() {
+        url = "tyleroconnell.com:8080/courses";
+
+        department = ((EditText) findViewById(R.id.dept_entry)).getText().toString().replace(" ", "%20");
+        number = ((EditText) findViewById(R.id.courseNumberEdit)).getText().toString();
+        credits = credit_spinner.getSelectedItem().toString().trim();
+        professor = ((EditText) findViewById(R.id.profEntry)).getText().toString();
+
+        if (department.length() > 0)
+            url += "?department=" + department;
+        if (number.length() > 0)
+            url += "?number=" + number;
+        if (credit_spinner.getSelectedItemPosition() != 0)
+            url += "?credits=" + credits;
+        if (professor.length() > 0)
+            url += "?professor=" + professor;
+
+        professorRating = ((RatingBar) findViewById(R.id.prof_rating_bar)).getRating() + "";
+
+        boolean firstBreadthReached = false;
+        if (((CheckBox) findViewById(R.id.humanities)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Humanities";
+        }
+        if (((CheckBox) findViewById(R.id.literature)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Literature";
+        }
+        if (((CheckBox) findViewById(R.id.biological_sciences)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Biological%20Science";
+        }
+        if (((CheckBox) findViewById(R.id.natural_science)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Natural%20Science";
+        }
+        if (((CheckBox) findViewById(R.id.physical_science)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Physical%20Science";
+        }
+        if (((CheckBox) findViewById(R.id.social_science)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Social%20Science";
+        }
+        if (((CheckBox) findViewById(R.id.interdivisional)).isChecked()) {
+            if (firstBreadthReached)
+                url += "-";
+            else {
+                firstBreadthReached = true;
+                url += "?breadth=";
+            }
+            url += "Interdivisional";
+        }
+
+
         startActivity(new Intent(CourseSearch.this, CourseSearchResults.class));
     }
-
 
 }
