@@ -74,7 +74,7 @@ public class CourseSearch extends AppCompatActivity {
 
     }
 
-    public void launchURL() {
+    public void launchURL(View v) {
         url = "tyleroconnell.com:8080/courses";
 
         department = ((EditText) findViewById(R.id.dept_entry)).getText().toString().replace(" ", "%20");
