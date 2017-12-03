@@ -154,9 +154,15 @@ public class CourseDescription extends AppCompatActivity {
 
     public String parseSchedule(String[] sch) {
         String s = "";
+        boolean first_DOW_reached = false;
+        // have we encountered a day of the week with courses yet?
         String MTWRF = "MTWRF";
         for (int day = 0; day < 5; day++) {
-            if (sch[day].length() > 0) {
+            if (sch[day].length() > 0) { // any courses on that day?
+                if (!first_DOW_reached)
+                    first_DOW_reached = true;
+                else // 2nd day of the week with courses, use newline
+                    s += "\n";
                 s += (MTWRF.charAt(day) + ":");
                 String[] classRepeats = sch[day].split("&");
                 for (int j = 0; j < classRepeats.length; j++) {
@@ -187,9 +193,7 @@ public class CourseDescription extends AppCompatActivity {
                     if (j + 1 < classRepeats.length)
                         s += ","; // last class of day
                 }
-                if (day != 4)
-                    s += "\n";
-                // last day, don't need extra \n whitespace between schedule and course_desc
+
             }
         }
         return s;
