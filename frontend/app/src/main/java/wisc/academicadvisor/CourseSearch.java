@@ -1,33 +1,30 @@
 package wisc.academicadvisor;
 
 import android.content.Intent;
+import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.SearchView;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class CourseSearch extends AppCompatActivity {
 
-    private SearchView sv;
-    // private ListView courseListView;
-    private ArrayList<String> courseList; // used with Adapter for the listview to output
-    private ArrayList<String> courses = new ArrayList<String>(){{
-        add("CS302 Programming I");
-        add("CS367 Programming II");
-        add("CS/ECE354 Machine Org and Programming");
-        add("ECE352 Digital System Fundamentals");
-    }};  // list of courses to search through until we have database set up
-    // private ArrayAdapter<String> adapterList;
-
-    // array of breadth
-    private String[] breadth;
+    private String[] credits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,74 +34,68 @@ public class CourseSearch extends AppCompatActivity {
         // make it so editText doesn't pop up immediately
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        // Listview that holds search result
-        ListView courseListView = (ListView)findViewById(R.id.courseList);
-        courseList = new ArrayList<String>();
-
-        // set array adapter for the Listview
-        final ArrayAdapter<String> adapterList = new ArrayAdapter<String>(this,
-                R.layout.course_search_output, courseList);
-        courseListView.setAdapter(adapterList);
-
-        courseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // Toast.makeText(CourseSearchResults.this, courseList.get(position).toString() + " was added to class schedule", Toast.LENGTH_SHORT).show();
-                // courseList.remove(position);
-                // adapterList.notifyDataSetChanged();
-                // startActivity(new Intent(CourseSearchResults.this, CourseSearchResults.class));
-
-                // pass the course id to the next activity in order to diplay information
-                // TODO have a courseId for each course in database
-                Intent intent = new Intent(CourseSearch.this, CourseSearchResults.class);
-                intent.putExtra("CourseID", courseList.get(position).toString());
-                startActivity(intent);
-            }
-        });
+        final Spinner creditSpinner = (Spinner) findViewById(R.id.credits_spinner);
 
         // all breadth options for spinnger (maybe add Ethnic Study (not a breadth option on course guide))
-        this.breadth = new String[] {"","Biological Science", "Humanities", "Interdivisional",
-                "Literature", "Natural Science", "Physical Science", "Social Science"};
+        credits = new String[]
+                {"-----N/A-----","      1      ", "      2      ", "      3      ", "      4      ",
+                        "      5      ", "      6      ", "      7      "};
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
+                R.layout.spinner_item, credits);
+        adapterSpinner.setDropDownViewResource(R.layout.spinner_dropdown);
+        creditSpinner.setAdapter(adapterSpinner);
 
-        // Initialize spinner
-        Spinner breadthSpinner = (Spinner)findViewById(R.id.breadthSpinner);
-        // set adapter for the spinner to be the major strings
-        ArrayAdapter<String> adapterSpin = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, breadth);
-        breadthSpinner.setAdapter(adapterSpin);
+        final RatingBar profRating = (RatingBar) findViewById(R.id.prof_rating_bar);
 
-        // inititate a search view
-        sv = (SearchView)findViewById(R.id.courseSearch);
-        // set default value of search bar
-        sv.setQueryHint("Search here");
+        final CheckBox humanities = (CheckBox) findViewById(R.id.humanities);
 
-        // listener for the search interface
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
+        humanities.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            // handle a search query
-            public boolean onQueryTextSubmit(String query) {
-                // clear the previouse search
-                courseList.clear();
-                adapterList.notifyDataSetChanged();
-                // look for what user searched for
-                // TODO query the database
-                for(int i = 0; i < courses.size(); i++){
-                    if(courses.get(i).contains(query)){
-                        courseList.add(courses.get(i));
-                        adapterList.notifyDataSetChanged();
-                    }
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (humanities.isChecked()){
+                    String credits = creditSpinner.getSelectedItem().toString().trim();
+                    if (creditSpinner.getSelectedItemPosition() == 0)
+                        credits = "No ";
+                    Toast.makeText(CourseSearch.this, credits + " credits selected!", Toast.LENGTH_SHORT).show();
                 }
-                // Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
-                return false;
-            }
-
-            @Override
-            // handle change in text in the search bar
-            public boolean onQueryTextChange(String newText) {
-                // Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
-                return false;
+                else {
+                    Toast.makeText(CourseSearch.this, profRating.getRating() + " professor rating", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        SeekBar avgGPA = (SeekBar) findViewById(R.id.gpa_seekBar);
+        final TextView gpaText = (TextView) findViewById(R.id.avgGPA_text);
+
+        avgGPA.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                String gpa = String.format("%.02f", progress / 100.0);
+                gpaText.setText("Average GPA: " + gpa + " / 4.00");
+            }
+
+        });
+
+
+
+
+
+
+    }
+
+    public void launchCourseSearchResultsActivity(View v){
+        startActivity(new Intent(CourseSearch.this, CourseSearchResults.class));
     }
 
 

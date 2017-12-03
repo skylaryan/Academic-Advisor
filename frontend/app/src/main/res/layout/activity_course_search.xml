@@ -1,134 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="wisc.academicadvisor.CourseSearchResults">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/course_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Course Search"
-        android:layout_marginTop="21dp"
-        android:textSize="20pt"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <!-- <item android:id="@+id/search"
-        android:title="Course Search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:showAsAction="collapseActionView|ifRoom"
-        android:actionViewClass="android.widget.SearchView"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp" /> -->
-
-    <ImageView
-        android:id="@+id/rectCourseSearch"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_weight="1"
-        android:layout_alignTop="@+id/courseSearch"
-        android:layout_above="@+id/courseList"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignLeft="@+id/courseSearch"
-        android:layout_alignStart="@+id/courseSearch"
-        android:layout_alignRight="@+id/courseSearch"
-        android:layout_alignEnd="@+id/courseSearch" />
-
-    <SearchView
-        android:id="@+id/courseSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false"
-        android:queryHint="Search here"
-        android:layout_marginTop="104dp"
-        android:layout_below="@+id/breadth"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginRight="60dp"
-        android:layout_marginLeft="60dp">
-    </SearchView>
-
-    <!-- <TextView
-        android:id="@+id/generalTitle"/>
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="General Search:"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/course_search"
-        android:layout_centerHorizontal="true"
-        android:textSize="7pt"/> -->
-
-    <ListView
-        android:id="@+id/courseList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/courseSearch"
-        android:layout_alignLeft="@+id/rectCourseSearch"
-        android:layout_alignStart="@+id/rectCourseSearch"
-        android:layout_alignRight="@+id/rectCourseSearch"
-        android:layout_alignEnd="@+id/rectCourseSearch"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/breadth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Breadth"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/course_search"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp"
-        android:textSize="8pt"/>
-
-    <Spinner
-        android:id="@+id/breadthSpinner"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/breadth"
-        android:layout_toRightOf="@+id/breadth"
-        android:layout_toEndOf="@+id/breadth"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="25pt"/>
-    <!-- android:background="@android:color/transparent" -->
-
-    <TextView
-        android:id="@+id/courseNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/breadth"
-        android:layout_alignStart="@+id/breadth"
-        android:layout_below="@+id/breadth"
-        android:layout_marginTop="15dp"
-        android:textSize="8pt"
-        android:text="Course Number"/>
-
-    <EditText
-        android:id="@+id/courseNumberEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:layout_alignBaseline="@+id/courseNum"
-        android:layout_alignBottom="@+id/courseNum"
-        android:layout_toRightOf="@+id/courseNum"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="30pt"
-        android:layout_alignRight="@+id/course_search"
-        android:layout_alignEnd="@+id/course_search" />
+        <TextView
+            android:id="@+id/course_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="21dp"
+            android:text="Course Search"
+            android:textSize="20pt" />
 
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/courseNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tv_dept"
+            android:layout_below="@+id/editText"
+            android:layout_marginTop="17dp"
+            android:text="Course Number:"
+            android:textSize="8pt" />
+
+        <EditText
+            android:id="@+id/courseNumberEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/courseNum"
+            android:layout_alignBottom="@+id/courseNum"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_marginLeft="5pt"
+            android:layout_toRightOf="@+id/courseNum"
+            android:ems="10"
+            android:inputType="number"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_dept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/course_search"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="27dp"
+            android:text="Subject:"
+            android:textSize="8pt" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_dept"
+            android:layout_alignBottom="@+id/tv_dept"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/tv_dept"
+            android:ems="10"
+            android:hint="(CS, ECE, Math, etc.)"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/courseNum"
+            android:layout_below="@+id/courseNumberEdit"
+            android:layout_marginTop="17dp"
+            android:text="Credits:"
+            android:textSize="8pt" />
+
+
+        <Spinner
+            android:id="@+id/credits_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/textView" />
+
+        <Button
+            android:id="@+id/btn_Search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="#e12525"
+            android:text="SEARCH"
+
+            android:textColor="#ffffffff"
+            android:onClick="launchCourseSearchResultsActivity"
+            android:layout_below="@+id/gpa_seekBar"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView"
+            android:layout_below="@+id/credits_spinner"
+            android:layout_marginTop="30dp"
+            android:text="Breadth:"
+            android:textSize="8pt" />
+
+        <CheckBox
+            android:id="@+id/biological_sciences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Biological Sciences"
+            android:layout_below="@+id/humanities"
+            android:layout_alignStart="@+id/humanities" />
+
+        <CheckBox
+            android:id="@+id/humanities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Humanities"
+            android:layout_below="@+id/textView3"
+            android:layout_alignStart="@+id/textView3" />
+
+        <CheckBox
+            android:id="@+id/literature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Literature"
+            android:layout_above="@+id/biological_sciences"
+            android:layout_toEndOf="@+id/invisible_centering_textview" />
+
+        <CheckBox
+            android:id="@+id/natural_science"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Natural Science"
+            android:layout_alignBaseline="@+id/biological_sciences"
+            android:layout_alignBottom="@+id/biological_sciences"
+            android:layout_toEndOf="@+id/invisible_centering_textview" />
+
+        <CheckBox
+            android:id="@+id/physical_science"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="Physical Science"
+            android:layout_below="@+id/biological_sciences"
+            android:layout_alignStart="@+id/biological_sciences" />
+
+        <CheckBox
+            android:id="@+id/social_science"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Social Science"
+            android:layout_alignBaseline="@+id/physical_science"
+            android:layout_alignBottom="@+id/physical_science"
+            android:layout_alignStart="@+id/natural_science" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="8pt"
+            android:text="Minimum professor rating:"
+            android:layout_below="@+id/textView4"
+            android:layout_alignStart="@+id/textView3" />
+
+        <RatingBar
+            android:id="@+id/prof_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/textView2"
+            android:layout_alignStart="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/invisible_centering_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/humanities" />
+
+        <CheckBox
+            android:id="@+id/interdivisional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/physical_science"
+            android:layout_below="@+id/physical_science"
+            android:layout_marginTop="13dp"
+            android:text="Interdivisional" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Professor:"
+            android:textSize="8pt"
+            android:layout_below="@+id/interdivisional"
+            android:layout_alignStart="@+id/textView2" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignEnd="@+id/natural_science" />
+
+        <SeekBar
+            android:id="@+id/gpa_seekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/avgGPA_text"
+            android:layout_alignStart="@+id/prof_rating_bar"
+            android:progress="300"
+            android:max="400"
+            android:paddingVertical="20dp"
+            android:layout_alignEnd="@+id/btn_Search" />
+
+        <TextView
+            android:id="@+id/avgGPA_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/prof_rating_bar"
+            android:layout_below="@+id/prof_rating_bar"
+            android:layout_marginTop="16dp"
+            android:text="Average GPA: 3.00 / 4.00"
+            android:textSize="8pt"/>
+
+
+    </RelativeLayout>
+</ScrollView>

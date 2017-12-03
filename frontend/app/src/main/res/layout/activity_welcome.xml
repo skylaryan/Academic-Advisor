@@ -58,15 +58,15 @@
         android:layout_marginBottom="20dp"/>
 
     <Button
-        android:id="@+id/searchCourses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#e12525"
-        android:textColor="#ffffffff"
-        android:text="Search Sample courses"
-        android:onClick="launchCourseSearchResultsActivity"
-        android:layout_below="@+id/createanaccount"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp" />
+    android:id="@+id/searchCourses"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="#e12525"
+    android:textColor="#ffffffff"
+    android:text="Search Sample courses"
+    android:onClick="launchCourseSearchResultsActivity"
+    android:layout_below="@+id/createanaccount"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="14dp" />
 
 </RelativeLayout>

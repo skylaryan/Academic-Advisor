@@ -50,17 +50,12 @@ public class CourseDescription extends AppCompatActivity {
         @Override
         protected String doInBackground(String... in) {
             try {
-
+                HttpURLConnection urlConnection = null;
                 URL url = null;
                 try {
                     url = new URL("http://tyleroconnell.com:8080/courses");
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
                     try {
-                        BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                        String content = "", line;
-                        while ((line = rd.readLine()) != null) {
-                            content += line + "\n";
-                        }
                         //System.out.println(content);
 
                         JSONParser parser = new JSONParser();
@@ -71,6 +66,12 @@ public class CourseDescription extends AppCompatActivity {
                         JSONArray jaCourse;
 
                         if (useJSONbool.equals("true")) {
+                            urlConnection = (HttpURLConnection) url.openConnection();
+                            BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                            String content = "", line;
+                            while ((line = rd.readLine()) != null) {
+                                content += line + "\n";
+                            }
                             jaCourse = (JSONArray) parser.parse(content);
                             joCourse = (JSONObject) jaCourse.get(0);
                         }
