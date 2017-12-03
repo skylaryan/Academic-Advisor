@@ -1,32 +1,28 @@
 package wisc.academicadvisor;
 
 import android.content.Intent;
-import android.media.Rating;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.SearchView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class CourseSearch extends AppCompatActivity {
 
     private String department, number, credits, professor, professorRating;
-    private String url;
+    private String url_S;
     private Spinner credit_spinner;
     private SeekBar avgGPA;
 
@@ -75,7 +71,7 @@ public class CourseSearch extends AppCompatActivity {
     }
 
     public void launchURL(View v) {
-        url = "tyleroconnell.com:8080/courses";
+        url_S = "tyleroconnell.com:8080/courses";
 
         department = ((EditText) findViewById(R.id.dept_entry)).getText().toString().replace(" ", "%20");
         number = ((EditText) findViewById(R.id.courseNumberEdit)).getText().toString();
@@ -83,83 +79,108 @@ public class CourseSearch extends AppCompatActivity {
         professor = ((EditText) findViewById(R.id.profEntry)).getText().toString();
 
         if (department.length() > 0)
-            url += "?department=" + department;
+            url_S += "?department=" + department;
         if (number.length() > 0)
-            url += "?number=" + number;
+            url_S += "?number=" + number;
         if (credit_spinner.getSelectedItemPosition() != 0)
-            url += "?credits=" + credits;
+            url_S += "?credits=" + credits;
         if (professor.length() > 0)
-            url += "?professor=" + professor;
+            url_S += "?professor=" + professor;
 
         professorRating = ((RatingBar) findViewById(R.id.prof_rating_bar)).getRating() + "";
 
         boolean firstBreadthReached = false;
         if (((CheckBox) findViewById(R.id.humanities)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Humanities";
+            url_S += "Humanities";
         }
         if (((CheckBox) findViewById(R.id.literature)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Literature";
+            url_S += "Literature";
         }
         if (((CheckBox) findViewById(R.id.biological_sciences)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Biological%20Science";
+            url_S += "Biological%20Science";
         }
         if (((CheckBox) findViewById(R.id.natural_science)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Natural%20Science";
+            url_S += "Natural%20Science";
         }
         if (((CheckBox) findViewById(R.id.physical_science)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Physical%20Science";
+            url_S += "Physical%20Science";
         }
         if (((CheckBox) findViewById(R.id.social_science)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Social%20Science";
+            url_S += "Social%20Science";
         }
         if (((CheckBox) findViewById(R.id.interdivisional)).isChecked()) {
             if (firstBreadthReached)
-                url += "-";
+                url_S += "-";
             else {
                 firstBreadthReached = true;
-                url += "?breadth=";
+                url_S += "?breadth=";
             }
-            url += "Interdivisional";
+            url_S += "Interdivisional";
         }
 
+        // start connection and pull data from back end
+        readServerPage rSp = new readServerPage();
+        rSp.execute();
 
         startActivity(new Intent(CourseSearch.this, CourseSearchResults.class));
+    }
+
+    protected class readServerPage extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpURLConnection urlConnection = null;
+            URL url = null;
+            try {
+                url = new URL(url_S);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                String content = "", line;
+                while ((line = rd.readLine()) != null)
+                    content += line + "\n";
+                // content String contains web page data pulled from Tyler's server!!!!
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
 }
