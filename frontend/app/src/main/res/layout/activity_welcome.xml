@@ -63,7 +63,7 @@
     android:layout_height="wrap_content"
     android:backgroundTint="#e12525"
     android:textColor="#ffffffff"
-    android:text="Search Sample courses"
+    android:text="Search Courses"
     android:onClick="launchCourseSearchResultsActivity"
     android:layout_below="@+id/createanaccount"
     android:layout_centerHorizontal="true"

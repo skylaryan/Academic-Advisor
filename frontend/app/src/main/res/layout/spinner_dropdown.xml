@@ -8,4 +8,5 @@
     android:textSize="8pt"
     android:paddingVertical="5dp"
     android:textAlignment="center"
+    android:paddingHorizontal="10dp"
     android:ellipsize="marquee"/>

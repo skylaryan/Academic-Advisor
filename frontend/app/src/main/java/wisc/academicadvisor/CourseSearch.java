@@ -38,8 +38,8 @@ public class CourseSearch extends AppCompatActivity {
 
         // all breadth options for spinnger (maybe add Ethnic Study (not a breadth option on course guide))
         String[] credits = new String[]
-                {"-----N/A-----", "      1      ", "      2      ", "      3      ", "      4      ",
-                        "      5      ", "      6      ", "      7      "};
+                {"---N/A---", "1", "2", "3", "4",
+                        "5", "6", "7"};
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
                 R.layout.spinner_item, credits);
         adapterSpinner.setDropDownViewResource(R.layout.spinner_dropdown);
