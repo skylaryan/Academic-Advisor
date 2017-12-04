@@ -17,7 +17,7 @@ public class Course {
     private String[] breadth; // {"Natural Sciences"}
     private String professor; // John Doe
     private double professorRating; // 4.9
-    private double[][] gradeHidstory; // list of past semesters of grade info: each with avg gpa, percent A, AB, ...
+    private double[][] gradeHistory; // list of past semesters of grade info: each with avg gpa, percent A, AB, ...
     private String description; // This is a class where you will learn how to program.
     private String[] schedule; // MWF 2:30-3:45 & F 4-5 as {"14:30-15:45","","14:30-15:45","","14:30-15:45|16:00-17:00"}
 
