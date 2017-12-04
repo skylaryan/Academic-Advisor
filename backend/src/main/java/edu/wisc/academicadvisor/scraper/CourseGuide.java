@@ -8,7 +8,7 @@ public class CourseGuide {
     public CourseGuide() throws IOException {
         String s = null;
 
-        Process p = Runtime.getRuntime().exec("python2.7 /home/academicadvisor/academicadvisor/backend/api/src/main/python/edu/wisc/academicadvisor/scraper/CourseGuideScraper.py");
+        Process p = Runtime.getRuntime().exec("python2.7 /home/academicadvisor/academicadvisor/backend/src/main/python/edu/wisc/academicadvisor/scraper/CourseGuideScraper.py");
 
         BufferedReader stdInput = new BufferedReader(new
                 InputStreamReader(p.getInputStream()));
