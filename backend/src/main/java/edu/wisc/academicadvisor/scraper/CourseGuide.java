@@ -1,0 +1,31 @@
+package edu.wisc.academicadvisor.scraper;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class CourseGuide {
+    public CourseGuide() throws IOException {
+        String s = null;
+
+        Process p = Runtime.getRuntime().exec("python2.7 /home/academicadvisor/academicadvisor/backend/src/main/python/edu/wisc/academicadvisor/scraper/CourseGuideScraper.py");
+
+        BufferedReader stdInput = new BufferedReader(new
+                InputStreamReader(p.getInputStream()));
+
+        BufferedReader stdError = new BufferedReader(new
+                InputStreamReader(p.getErrorStream()));
+
+        // read the output from the command
+        String outp = "";
+        while ((s = stdInput.readLine()) != null) {
+            outp = outp + s;
+        }
+
+        // read any errors from the attempted command
+        while ((s = stdError.readLine()) != null) {
+            System.out.println(s);
+        }
+        System.out.println(outp);
+    }
+}
