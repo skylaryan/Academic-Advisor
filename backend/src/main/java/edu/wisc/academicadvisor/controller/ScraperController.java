@@ -114,7 +114,7 @@ public class ScraperController {
     private boolean scrapeRateMyProfessor() throws IOException, ParseException {
         jdbcTemplate.execute("DELETE FROM professor;"); // TODO
         RateMyProfessor rateMyProfessor = new RateMyProfessor();
-        List<String> professors = jdbcTemplate.queryForList("SELECT professor FROM class;", String.class);
+        List<String> professors = jdbcTemplate.queryForList("SELECT professor FROM mergedcourses;", String.class);
         Object[] tmp = professors.toArray();
         String[] list = new String[tmp.length];
         for (int i = 0; i < tmp.length; i++) list[i] = (String)tmp[i];
