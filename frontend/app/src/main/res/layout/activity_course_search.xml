@@ -92,6 +92,21 @@
             android:layout_marginBottom="-3dp"
             android:layout_alignBottom="@+id/credits_spinner" />
 
+        <ImageView
+            android:id="@+id/gpabarRect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/rectangle_trans_curve"
+            android:layout_alignRight="@+id/gpa_seekBar"
+            android:layout_alignEnd="@+id/gpa_seekBar"
+            android:layout_alignLeft="@+id/gpa_seekBar"
+            android:layout_alignStart="@+id/gpa_seekBar"
+            android:layout_alignTop="@+id/gpa_seekBar"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="-3dp"
+            android:layout_marginBottom="-3dp"
+            android:layout_alignBottom="@+id/gpa_seekBar" />
+
 
         <Spinner
             android:id="@+id/credits_spinner"
@@ -188,9 +203,9 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="27dp"
             android:textSize="8pt"
-            android:text="Minimum professor rating:"
+            android:text="Use minimum professor rating:"
             android:layout_below="@+id/textView4"
             android:layout_alignStart="@+id/textView3" />
 
@@ -249,6 +264,7 @@
             android:layout_alignStart="@+id/prof_rating_bar"
             android:progress="300"
             android:max="400"
+            android:layout_marginTop="25dp"
             android:paddingVertical="20dp"
             android:layout_alignEnd="@+id/btn_Search" />
 
@@ -259,8 +275,27 @@
             android:layout_alignStart="@+id/prof_rating_bar"
             android:layout_below="@+id/prof_rating_bar"
             android:layout_marginTop="16dp"
-            android:text="Average GPA: 3.00 / 4.00"
+            android:text="Use Average GPA: 3.00 / 4.00"
             android:textSize="8pt"/>
+
+        <Switch
+            android:id="@+id/switch_profRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_alignBaseline="@id/textView2"
+            android:layout_alignEnd="@+id/gpa_seekBar" />
+
+        <Switch
+            android:id="@+id/switch_GPA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_alignEnd="@+id/gpa_seekBar"
+            android:layout_alignBaseline="@id/avgGPA_text" />
 
 
     </RelativeLayout>

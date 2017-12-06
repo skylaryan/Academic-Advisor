@@ -1,7 +1,6 @@
 package wisc.academicadvisor;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,12 +11,9 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import android.widget.Toast;
 
 public class CourseSearch extends AppCompatActivity {
 
@@ -25,9 +21,11 @@ public class CourseSearch extends AppCompatActivity {
     private String url_S;
     private Spinner credit_spinner;
     private SeekBar avgGPA;
+    private int filters = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        filters = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_search);
 
@@ -63,7 +61,7 @@ public class CourseSearch extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 String gpa = String.format("%.02f", progress / 100.0);
-                gpaTextDisplay.setText("Average GPA: " + gpa + " / 4.00");
+                gpaTextDisplay.setText("Use Average GPA: " + gpa + " / 4.00");
             }
 
         });
@@ -78,14 +76,22 @@ public class CourseSearch extends AppCompatActivity {
         credits = credit_spinner.getSelectedItem().toString().trim();
         professor = ((EditText) findViewById(R.id.profEntry)).getText().toString();
 
-        if (department.length() > 0)
+        if (department.length() > 0) {
             url_S += "?department=" + department;
-        if (number.length() > 0)
+            filters++;
+        }
+        if (number.length() > 0) {
             url_S += "?number=" + number;
-        if (credit_spinner.getSelectedItemPosition() != 0)
+            filters++;
+        }
+        if (credit_spinner.getSelectedItemPosition() != 0) {
             url_S += "?credits=" + credits;
-        if (professor.length() > 0)
+            filters++;
+        }
+        if (professor.length() > 0) {
             url_S += "?professor=" + professor;
+            filters++;
+        }
 
         professorRating = ((RatingBar) findViewById(R.id.prof_rating_bar)).getRating() + "";
 
@@ -154,33 +160,28 @@ public class CourseSearch extends AppCompatActivity {
             url_S += "Interdivisional";
         }
 
-        // start connection and pull data from back end
-        readServerPage rSp = new readServerPage();
-        rSp.execute();
+        if (firstBreadthReached)
+            filters++;
 
-        startActivity(new Intent(CourseSearch.this, CourseSearchResults.class));
+        Switch useProfRating = (Switch) findViewById(R.id.switch_profRating);
+        Switch useAvgGPA = (Switch) findViewById(R.id.switch_GPA);
+        if (useProfRating.isChecked())
+            filters++;
+        if (useAvgGPA.isChecked())
+            filters++;
+
+        String numFilters = filters + "";
+
+        Toast.makeText(CourseSearch.this, filters + " filters selected", Toast.LENGTH_SHORT).show();
+
+
+
+
+        Intent intent = new Intent(CourseSearch.this, CourseSearchResults.class);
+        intent.putExtra("search_URL", url_S);
+        intent.putExtra("filters", numFilters);
+        startActivity(intent);
     }
 
-    protected class readServerPage extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            HttpURLConnection urlConnection = null;
-            URL url = null;
-            try {
-                url = new URL(url_S);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                String content = "", line;
-                while ((line = rd.readLine()) != null)
-                    content += line + "\n";
-                // content String contains web page data pulled from Tyler's server!!!!
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
 
 }

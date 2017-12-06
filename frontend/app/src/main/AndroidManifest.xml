@@ -25,6 +25,10 @@
         <activity android:name=".CourseSearchResults" />
         <activity android:name=".CourseDescription" />
         <activity android:name=".CourseSearch" />
+        <activity
+            android:name=".CourseSearchResults_collapsible"
+            android:label="@string/title_activity_course_search_results_collapsible"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

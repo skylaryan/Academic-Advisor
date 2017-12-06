@@ -1,27 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ListView
-        android:id ="@id/courseList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="7dp"
-        android:gravity="center"
-        android:layout_below="@+id/resultsTitle" />
-
-    <TextView
-        android:id="@+id/resultsTitle"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="## Course Search Results"
-        android:gravity="center"
-        android:textSize="14pt"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_centerVertical="true"
+        android:indeterminate="true" />
+
+    <RelativeLayout
+        android:id="@id/subLevel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <ListView
+            android:id="@id/courseList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/resultsTitle"
+            android:layout_marginBottom="7dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/resultsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="#e12525"
+            android:textColor="#ffffff"
+            android:paddingVertical="25dp"
+            android:text="## Course Search Results"
+            android:textSize="14pt"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

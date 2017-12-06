@@ -32,6 +32,8 @@ public class CourseDescription extends AppCompatActivity {
             schedule,
             course_desc;
 
+    String jsResponse = "";
+
     private ProgressBar pb;
 
     protected class readServerPage extends AsyncTask<String, Void, String> {
@@ -68,11 +70,12 @@ public class CourseDescription extends AppCompatActivity {
                         if (useJSONbool.equals("true")) {
                             urlConnection = (HttpURLConnection) url.openConnection();
                             BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                            String content = "", line;
+                            jsResponse = "";
+                            String line;
                             while ((line = rd.readLine()) != null) {
-                                content += line + "\n";
+                                jsResponse += line + "\n";
                             }
-                            jaCourse = (JSONArray) parser.parse(content);
+                            jaCourse = (JSONArray) parser.parse(jsResponse);
                             joCourse = (JSONObject) jaCourse.get(0);
                         }
                         else
