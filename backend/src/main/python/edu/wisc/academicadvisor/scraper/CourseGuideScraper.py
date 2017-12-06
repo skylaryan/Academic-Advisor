@@ -32,7 +32,7 @@ norespg = Select(browser.find_element_by_id("resultsPerPageSelectPluto_29_u124l1
 norespg.select_by_index(3)
 prevsubj = soup.find('nobr').get_text().strip()
 d = []
-for it in range(1, 188):
+for it in range(1, 4):
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'subjSelPluto_29_u124l1n31_12_tw_')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'termChoice3')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'submitButtonPluto_29_u124l1n31_12_tw_')))
@@ -49,7 +49,7 @@ for it in range(1, 188):
         except:
             mySelectElement = Select(browser.find_element_by_id("subjSelPluto_29_u124l1n31_12_tw_"))
             continue
-    submitButton = browser.find_element_by_id("submitButtonPluto_29_u124l1n31_12_tw_") 
+    submitButton = browser.find_element_by_id("submitButtonPluto_29_u124l1n31_12_tw_")
     submitButton.click()
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'subjSelPluto_29_u124l1n31_12_tw_')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'termChoice3')))
@@ -64,15 +64,15 @@ for it in range(1, 188):
         while(soup.find('nobr').get_text().strip()==prevsubj):
             innerHTML = browser.execute_script("return document.body.innerHTML")
             soup = bs.BeautifulSoup(innerHTML, 'lxml')
-        prevsubj = soup.find('nobr').get_text().strip()  
+        prevsubj = soup.find('nobr').get_text().strip()
     except:
-        continue      
+        continue
     courlis = soup.find_all("tr", class_="courseResult")
     seclis = soup.find_all("a", class_="sectionExpand hide collapsibleCriteria enabled")
     try:
         seclis[0]
     except:
-        continue    
+        continue
     x=[]
     flag = False
     cnt=0
@@ -94,28 +94,26 @@ for it in range(1, 188):
                             section = soupx.find_all('td')
                             for infox in section:
                                 try:
-                                    if str(infox.get_text().encode('utf-8').strip()) != "" and str(infox.get_text().encode('utf-8').strip()) != "\u00a0":
-                                        tempstr = str(infox.get_text().encode('utf-8').strip())
+                                    if infox.get_text().strip() != "" and infox.get_text().strip() != "\u00a0" and infox.get_text().strip().find('-')== -1:
+                                        tempstr = infox.get_text().strip()
                                         try:
                                             int(tempstr)
                                         except ValueError:
                                             if(it%2!=0):
-                                                x.append(str(infox.get_text().encode('utf-8').strip()))
-                                        except Exception as e:
-                                            print e        
+                                                x.append(infox.get_text().strip())
                                 except Exception as e:
                                     print e
                         else:
                             if(it%2!=0):
-                                x.append(str(info.get_text().strip()))                                            
+                                x.append(str(info.get_text().strip()))
                 except:
-                    continue        
+                    continue
             if flag==True:
                 if x != []:
                     d.append(x)
                     x=[]
-            flag = False        
-   
+            flag = False
+
 browser.get(urlimp)
 myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'CG_browsePluto_29_u124l1n31_12_tw_')))
 innerHTML = browser.execute_script("return document.body.innerHTML")
@@ -123,7 +121,7 @@ soup = bs.BeautifulSoup(innerHTML, 'lxml')
 norespg = Select(browser.find_element_by_id("resultsPerPageSelectPluto_29_u124l1n31_12_tw_"))
 norespg.select_by_index(3)
 prevsubj = soup.find('nobr').get_text().strip()
-for it in range(1, 188):
+for it in range(1, 4):
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'subjSelPluto_29_u124l1n31_12_tw_')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'termChoice3')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'submitButtonPluto_29_u124l1n31_12_tw_')))
@@ -140,7 +138,7 @@ for it in range(1, 188):
         except:
             mySelectElement = Select(browser.find_element_by_id("subjSelPluto_29_u124l1n31_12_tw_"))
             continue
-    submitButton = browser.find_element_by_id("submitButtonPluto_29_u124l1n31_12_tw_") 
+    submitButton = browser.find_element_by_id("submitButtonPluto_29_u124l1n31_12_tw_")
     submitButton.click()
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'subjSelPluto_29_u124l1n31_12_tw_')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'termChoice3')))
@@ -155,15 +153,15 @@ for it in range(1, 188):
         while(soup.find('nobr').get_text().strip()==prevsubj):
             innerHTML = browser.execute_script("return document.body.innerHTML")
             soup = bs.BeautifulSoup(innerHTML, 'lxml')
-        prevsubj = soup.find('nobr').get_text().strip()  
+        prevsubj = soup.find('nobr').get_text().strip()
     except:
-        continue      
+        continue
     courlis = soup.find_all("tr", class_="courseResult")
     seclis = soup.find_all("a", class_="sectionExpand hide collapsibleCriteria enabled")
     try:
         seclis[0]
     except:
-        continue    
+        continue
     x=[]
     flag = False
     cnt=0
@@ -172,8 +170,8 @@ for it in range(1, 188):
             courses = i.find_all('td')
             for info in courses:
                 try:
-                    if str(info.get_text().encode("utf-8").strip()) != '' and str(info.get_text().encode("utf-8").strip()) != 'sections' and str(info.get_text().encode("utf-8").strip()) != 'Loading section information...':
-                        tempstr = str(info.get_text().encode("utf-8").strip())
+                    if str(info.get_text().strip()) != '' and str(info.get_text().strip()) != 'sections' and str(info.get_text().strip()) != 'Loading section information...':
+                        tempstr = str(info.get_text().strip())
                         if tempstr.find("Course Description") != -1:
                             flag=True
                             if(it%2==0):
@@ -185,27 +183,25 @@ for it in range(1, 188):
                             section = soupx.find_all('td')
                             for infox in section:
                                 try:
-                                    if str(infox.get_text().encode('utf-8').strip()) != "" and str(infox.get_text().encode('utf-8').strip()) != "\u00a0":
-                                        tempstr = str(infox.get_text().encode('utf-8').strip())
+                                    if infox.get_text().strip() != "" and infox.get_text().strip() != "\u00a0" and infox.get_text().strip().find('-')== -1:
+                                        tempstr = infox.get_text().strip()
                                         try:
                                             int(tempstr)
                                         except ValueError:
                                             if(it%2==0):
-                                                x.append(str(infox.get_text().encode('utf-8').strip()))
-                                        except Exception as e:
-                                            print e        
+                                                x.append(infox.get_text().strip())
                                 except Exception as e:
                                     print e
                         else:
                             if(it%2==0):
-                                x.append(str(info.get_text().strip()))                                            
+                                x.append(str(info.get_text().strip()))
                 except:
-                    continue        
+                    continue
             if flag==True:
                 if x != []:
                     d.append(x)
                     x=[]
-            flag = False        
-             
-#with open('data.txt', 'w') as outfile:
+            flag = False
+
+        #with open('data.txt', 'w') as outfile:
 print json.dumps(d)
