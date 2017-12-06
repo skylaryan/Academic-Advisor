@@ -24,6 +24,13 @@ public class CourseSearch extends AppCompatActivity {
     private int filters = 0;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        filters = 0;
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         filters = 0;
         super.onCreate(savedInstanceState);
