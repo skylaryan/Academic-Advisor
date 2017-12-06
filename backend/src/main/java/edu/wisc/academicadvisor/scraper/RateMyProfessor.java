@@ -18,7 +18,7 @@ public class RateMyProfessor {
     public RateMyProfessor() { }
 
     public String RateMyProfessor(String[] professors) throws IOException {
-        JSONObject json = new JSONObject();
+        JSONArray json = new JSONArray();
         for (int i = 0; i < professors.length; i++) {
             String temp = "";
             for (int j = 0; j < professors[i].length(); j++) {
@@ -40,6 +40,7 @@ public class RateMyProfessor {
             doc = Jsoup.connect(proflink).get();
 
             // getElements by class returns an Elements object with information of each class with the specified name in the HTML file
+
             Elements pname = doc.getElementsByClass("profname");
             Elements rating = doc.getElementsByClass("grade"); // difficulty and professor rating both have class=grade
             Elements tags = doc.getElementsByClass("tag-box-choosetags");
@@ -54,10 +55,11 @@ public class RateMyProfessor {
             rat = rating.eachText();
             proftag = tags.eachText();
 
+            profarray.add(pn.get(0));
             profarray.add(Float.parseFloat(rat.get(0)));
             profarray.add(Float.parseFloat(rat.get(2)));
             profarray.add(proftag);
-            json.put(pn.get(0), profarray);
+            json.add(profarray);
 
         }
 
@@ -65,7 +67,7 @@ public class RateMyProfessor {
         json.writeJSONString(out);
 
         String jsonText = out.toString();
-        System.out.println(jsonText);
+        //System.out.println(jsonText);
         return jsonText;
     }
 }

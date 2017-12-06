@@ -16,23 +16,17 @@ public class Course {
     private int numCredits; // 3
     private String[] breadth; // {"Natural Sciences"}
     private String professor; // John Doe
-    private double professorRating; // 4.9
-    private double[][] gradeHistory; // list of past semesters of grade info: each with avg gpa, percent A, AB, ...
     private String description; // This is a class where you will learn how to program.
-    private String[] schedule; // MWF 2:30-3:45 & F 4-5 as {"14:30-15:45","","14:30-15:45","","14:30-15:45|16:00-17:00"}
 
     public Course(String course, int section, String title, int numCredits, String[] breadth, String professor,
-                  double professorRating, /*double[][] gradeHistory, */String description, String[] schedule) {
+                  String description) {
         this.course = course;
         this.section = section;
         this.title = title;
         this.numCredits = numCredits;
         this.breadth = breadth;
         this.professor = professor;
-        this.professorRating = professorRating;
-        //this.gradeHistory = gradeHistory; TODO
         this.description = description;
-        this.schedule = schedule;
     }
 
     public String getCourse() {
@@ -71,20 +65,8 @@ public class Course {
         return professor;
     }
 
-    public double getProfessorRating() {
-        return professorRating;
-    }
-
-    /*public double[][] getGradeHistory() {
-        return gradeHistory;
-    }*/
-
     public String getDescription() {
         return description;
-    }
-
-    public String[] getSchedule() {
-        return schedule;
     }
 
 }

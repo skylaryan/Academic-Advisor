@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CourseGuide {
-    public CourseGuide() throws IOException {
+    public CourseGuide() { }
+
+    public String getJsonString() throws IOException {
         String s = null;
 
         Process p = Runtime.getRuntime().exec("python2.7 /home/academicadvisor/academicadvisor/backend/src/main/python/edu/wisc/academicadvisor/scraper/CourseGuideScraper.py");
@@ -27,5 +29,7 @@ public class CourseGuide {
             System.out.println(s);
         }
         System.out.println(outp);
+
+        return outp;
     }
 }

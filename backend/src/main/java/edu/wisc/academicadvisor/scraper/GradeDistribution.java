@@ -33,7 +33,7 @@ public class GradeDistribution {
 
         for (int count = 0; count < 6; count++) {
 
-            System.out.println("This is the " + (count + 1) + " times beginning................................");
+            //System.out.println("This is the " + (count + 1) + " times beginning................................");
 
             //Loading an existing document
             PDDocument document = PDDocument.load(files[count]);
@@ -86,7 +86,7 @@ public class GradeDistribution {
                     list.add(a);
             }
 
-            System.out.println("This is the " + (count + 1) + " times ending................................");
+            //System.out.println("This is the " + (count + 1) + " times ending................................");
             document.close();
         }
 
@@ -107,7 +107,7 @@ public class GradeDistribution {
             String courseName;
 
             //for checking
-            System.out.println(totalLines[i]);
+            //System.out.println(totalLines[i]);
 
             //if the line starts with "001"
             if (totalLines[i].startsWith("001")) {
@@ -120,7 +120,7 @@ public class GradeDistribution {
                 String courseNum = temp[temp.length - 1].substring(0, 3);
                 courseName = courseDepartment + " " + courseNum;
 
-                System.out.println(courseName);
+                //System.out.println(courseName);
 
                 //course grade distribution
                 temp = totalLines[i].split(" ");
@@ -133,14 +133,14 @@ public class GradeDistribution {
 
                         break;
                     } else if (temp[j].matches(".")) {
-                        grade[index] = 0;
+                        grade[index] = 0.0;
                     } else if (temp[j].matches("")) {
 
                     } else {
                         grade[index] = Double.valueOf(temp[j]);
                     }
 
-                    System.out.println(grade[index]);
+                    //System.out.println(grade[index]);
                     index++;
                 }
 
@@ -153,7 +153,7 @@ public class GradeDistribution {
                 String departmentName = temp[1];
                 String courseNum = temp[0].substring(temp[0].length() - 3);
                 courseName = departmentName + " " + courseNum;
-                System.out.println(courseName);
+                //System.out.println(courseName);
 
                 //course grade
                 temp = totalLines[i].split(" ");
@@ -170,7 +170,7 @@ public class GradeDistribution {
 
                             break;
                         } else if (temp[j].matches(".")) {
-                            grade[index] = 0;
+                            grade[index] = 0.0;
                             //System.out.println(grade[index]);
                             index++;
 
@@ -202,9 +202,9 @@ public class GradeDistribution {
 
                 }
 
-                for (int k = 0; k < grade.length; k++) {
+                /*for (int k = 0; k < grade.length; k++) {
                     System.out.println(grade[k]);
-                }
+                }*/
             }
             //input the data into Map gradeDistribution
             gradeDistribution.put(courseName, grade);

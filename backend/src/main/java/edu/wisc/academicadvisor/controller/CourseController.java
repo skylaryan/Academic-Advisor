@@ -42,10 +42,7 @@ public class CourseController {
                         (Integer)row.get("numCredits"),
                         ((String)row.get("breadth")).split("\\|"),
                         (String)row.get("professor"),
-                        (Double)row.get("professorRating"),
-                        //(String)row.get("gradeHistory"),
-                        (String)row.get("description"),
-                        ((String)row.get("schedule")).split("\\|")));
+                        (String)row.get("description")));
             }
         } catch (Exception ex) { ex.printStackTrace(); }
         return courses;
