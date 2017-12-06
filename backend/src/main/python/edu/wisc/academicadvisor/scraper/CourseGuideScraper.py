@@ -11,8 +11,8 @@ import requests
 import json
 from selenium.webdriver.support import expected_conditions as EC
 
-browser = webdriver.Firefox(executable_path=r'/Users/utkarsh/AcadAdvisor/backend/scrapers/src/main/python/geckodriver') #replace with .Firefox(), or with the browser of your choice
-browser2 = webdriver.Firefox(executable_path=r'/Users/utkarsh/AcadAdvisor/backend/scrapers/src/main/python/geckodriver') #replace with .Firefox(), or with the browser of your choice
+browser = webdriver.PhantomJS() #replace with .Firefox(), or with the browser of your choice
+browser2 = webdriver.PhantomJS() #replace with .Firefox(), or with the browser of your choice
 url = "https://public.my.wisc.edu/web/expanded"
 browser.get(url)
 delay = 10000 # seconds
