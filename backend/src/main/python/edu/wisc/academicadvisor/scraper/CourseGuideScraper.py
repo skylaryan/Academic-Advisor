@@ -32,7 +32,7 @@ norespg = Select(browser.find_element_by_id("resultsPerPageSelectPluto_29_u124l1
 norespg.select_by_index(3)
 prevsubj = soup.find('nobr').get_text().strip()
 d = []
-for it in range(1, 4):
+for it in range(1, 188):
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'subjSelPluto_29_u124l1n31_12_tw_')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'termChoice3')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'submitButtonPluto_29_u124l1n31_12_tw_')))
@@ -121,7 +121,7 @@ soup = bs.BeautifulSoup(innerHTML, 'lxml')
 norespg = Select(browser.find_element_by_id("resultsPerPageSelectPluto_29_u124l1n31_12_tw_"))
 norespg.select_by_index(3)
 prevsubj = soup.find('nobr').get_text().strip()
-for it in range(1, 4):
+for it in range(1, 188):
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'subjSelPluto_29_u124l1n31_12_tw_')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'termChoice3')))
     myElem = WebDriverWait(browser, delay).until(EC.presence_of_element_located((By.ID, 'submitButtonPluto_29_u124l1n31_12_tw_')))
@@ -203,5 +203,5 @@ for it in range(1, 4):
                     x=[]
             flag = False
 
-        #with open('data.txt', 'w') as outfile:
+            #with open('data.txt', 'w') as outfile:
 print json.dumps(d)

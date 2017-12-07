@@ -67,7 +67,7 @@ public class RateMyProfessor {
         json.writeJSONString(out);
 
         String jsonText = out.toString();
-        System.out.println(jsonText);
+        //System.out.println(jsonText);
         return jsonText;
     }
 }
