@@ -111,7 +111,8 @@ public class CourseDescription extends AppCompatActivity {
                                 for (int i = 0; i < jSch.size(); i++) {
                                     pjs[i] = (String) jSch.get(i);
                                 }
-                                schedule.setText(parseSchedule(pjs));
+                                schedule.setText(parseScheduleMilitary(pjs));
+
                                 course_desc.setText("" + joCourse.get("description"));
                             }
                         });
@@ -155,7 +156,41 @@ public class CourseDescription extends AppCompatActivity {
         rSp.execute();
     }
 
-    public String parseSchedule(String[] sch) {
+    public String parseSchedule(String sch) {
+        /** Parses strings of the form
+         *  MW 4:00-5:15PM\nTR 4:00-5:15PM         *
+         */
+
+        String[] daysOfWeek = new String[5];
+        String days = "MTWRF";
+        String schOut = "";
+        String[] schArr_NL = sch.split("\\r?\\n");
+        for (int L = 0; L < schArr_NL.length; L++) {
+            String[] perLineArr = schArr_NL[L].split(" ");
+            for (int D = 0; D < 5; D++) {
+                if (perLineArr[0].contains("" + days.charAt(D))) {
+                    if (daysOfWeek[D].length() > 0)
+                        daysOfWeek[D] += ", "; // multiple classes in 1 day
+                    else
+                        daysOfWeek[D] += days.charAt(D) + ": "; // 1st class of day
+                    daysOfWeek[D] += perLineArr[1]; // time range
+                }
+            }
+        }
+        boolean firstDayReached = false;
+        for (int D = 0; D < 5; D++) {
+            if (daysOfWeek[D].length() > 0) {
+                if (!firstDayReached)
+                    firstDayReached = true;
+                else // only add new line if we had class on an earlier day of the week
+                    schOut += "\n";
+                schOut += daysOfWeek[D];
+            }
+        }
+        return schOut;
+    }
+
+    public String parseScheduleMilitary(String[] sch) {
         String s = "";
         boolean first_DOW_reached = false;
         // have we encountered a day of the week with courses yet?

@@ -26,7 +26,7 @@ public class CreateAnAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_an_account);
 
         // initialize majors with potential majors **** could be pulled from database later on
-        this.majors = new String[] {"Computer Science", "Computer Engineering"};
+        this.majors = new String[] {"---Select a major---", "Computer Science", "Computer Engineering"};
 
         this.interests = new ArrayList<String>();
 
@@ -37,7 +37,8 @@ public class CreateAnAccount extends AppCompatActivity {
         Spinner spinner = (Spinner)findViewById(R.id.majorInputSpinner);
         // set adapter for the spinner to be the major strings
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, majors);
+                R.layout.spinner_item, majors);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(adapter);
 
 

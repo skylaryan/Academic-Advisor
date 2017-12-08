@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     tools:context="wisc.academicadvisor.UserLogin">
 
+    
+
     <TextView
         android:id="@+id/selectaprofile"
         android:text="@string/user_login_selectaprofile"
@@ -16,7 +18,7 @@
         android:textSize="25sp"/>
 
     <Button
-        android:id="@+id/selectprofile"
+        android:id="@+id/login_Enter_btn"
         android:text="@string/user_login_selectprofile"
         android:backgroundTint="#e12525"
         android:textColor="#ffffffff"

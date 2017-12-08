@@ -13,7 +13,7 @@ public class UserLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        Button profile = (Button)findViewById(R.id.selectprofile);
+        Button profile = (Button)findViewById(R.id.login_Enter_btn);
 
         profile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
