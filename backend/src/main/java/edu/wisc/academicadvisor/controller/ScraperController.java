@@ -49,7 +49,9 @@ public class ScraperController {
     }
 
     private boolean scrapeCourseGuide() throws IOException, ParseException {
-        /*System.out.println("create CourseGuide()");
+        jdbcTemplate.execute("DELETE FROM mergedcourses;");
+        //jdbcTemplate.execute("DELETE FROM class;");
+        System.out.println("create CourseGuide()");
         CourseGuide courseGuide = new CourseGuide();
         System.out.println("getJsonString()");
         String courses = courseGuide.getJsonString();
@@ -62,21 +64,27 @@ public class ScraperController {
             for (int j = 0; j < course.size(); j++) {
                 System.out.println(course.get(j));
             }
-            /*jdbcTemplate.execute("INSERT INTO mergedcourses (course, courseNum, title, numCredits, breadth, " +
-                    "description, prereqs) VALUES ('" + courseJson.get(0) + "'," + courseJson.get(1) + ",'" +
-                    courseJson.get(2) + "'," + courseJson.get(3) + ",'Natural Sciences','" + courseJson.get(5) +
-                    "','" + courseJson.get(6) + "');");
-            for (int j = 7; j < courseJson.size();) {
-                //jdbcTemplate.execute("INSERT INTO class (course, courseNum, section, location, schedule, " +
-                //        "professor) VALUES ('" + courseJson.get(0) + "'," + courseJson.get(1) + "," + ");");
+            System.out.println(course.get(4).toString());
+            if (!course.get(4).toString().contains("2017")) continue;
+            String[] description = course.get(5).toString().split("Pre-Reqs: ");
+            jdbcTemplate.execute("INSERT INTO mergedcourses (course, courseNum, title, numCredits, breadth, description, prereqs) VALUES ('" + course.get(0).toString().replaceAll("('|\n|\t)","") + "'," + course.get(1).toString().replaceAll("('|\n|\t)","").replace("Cross-Listed","") + ",'" + course.get(2).toString().toString().replaceAll("('|\n|\t)+","") + "'," + course.get(3).toString().replaceAll("('|\n|\t)","") + ",'Natural Sciences','" + description[0].replaceAll("('|\n|\t)","").replace("Course Description: ","").replaceAll("('|\n|\t)'","") + "','" + description[1].replaceAll("'('|\n|\t)","") + "');");
+            for (int j = 6; j < course.size() - 3;) {
+                System.out.println("section: " + course.get(j));
+                System.out.println("location: " + course.get(j+2));
+                System.out.println("schedule: " + course.get(j+3));
+                /*jdbcTemplate.execute("INSERT INTO class (course, courseNum, section, location, schedule, " +
+                        "professor) VALUES ('" + course.get(0) + "'," + course.get(1) + ",'" + course.get(j) + "','" +
+                        course.get(j+1) + "'," + course.get(j+2) + "'');");*/
+                if (course.size() > j + 4 && course.get(j+4).equals('\u00A0')) j++;
+                j += 4;
             }
 
-        }*/
+        }
         return true;
     }
 
     private boolean scrapeGradeDistribution() throws IOException {
-        GradeDistribution gradeDistribution = new GradeDistribution();
+        /*GradeDistribution gradeDistribution = new GradeDistribution();
         Map<String, double[]> distributionMap = gradeDistribution.GradeDistribution();
         Set<String> courses = distributionMap.keySet();
         double[] course = new double[distributionMap.keySet().size()];
@@ -107,14 +115,14 @@ public class ScraperController {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        }
+        }*/
         return true;
     }
 
     private boolean scrapeRateMyProfessor() throws IOException, ParseException {
-        jdbcTemplate.execute("DELETE FROM professor;"); // TODO
+        /*jdbcTemplate.execute("DELETE FROM professor;"); // TODO
         RateMyProfessor rateMyProfessor = new RateMyProfessor();
-        List<String> professors = jdbcTemplate.queryForList("SELECT professor FROM mergedcourses;", String.class);
+        List<String> professors = jdbcTemplate.queryForList("SELECT professor FROM class;", String.class);
         Object[] tmp = professors.toArray();
         String[] list = new String[tmp.length];
         for (int i = 0; i < tmp.length; i++) list[i] = (String)tmp[i];
@@ -136,7 +144,7 @@ public class ScraperController {
                 jdbcTemplate.execute("INSERT INTO professor (profName, rating, easiness, tags) VALUES ('" +
                         professor.get(0) + "'," + professor.get(1) + "," + professor.get(2) + ",'" + sb.toString() + "')");
             } else System.out.println("professor.size() is not as expected: " + professor.size());
-        }
+        }*/
         return true;
     }
 
