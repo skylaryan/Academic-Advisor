@@ -161,7 +161,7 @@ public class CourseDescription extends AppCompatActivity {
          *  MW 4:00-5:15PM\nTR 4:00-5:15PM         *
          */
 
-        String[] daysOfWeek = new String[5];
+		String[] daysOfWeek = {"", "", "", "", ""};
         String days = "MTWRF";
         String schOut = "";
         String[] schArr_NL = sch.split("\\r?\\n");
