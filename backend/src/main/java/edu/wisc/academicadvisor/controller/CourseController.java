@@ -1,17 +1,16 @@
 package edu.wisc.academicadvisor.controller;
 
 import edu.wisc.academicadvisor.model.Course;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CourseController {
@@ -19,32 +18,57 @@ public class CourseController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @RequestMapping("/courses")
-    public @ResponseBody List<Course> courses(@RequestParam(value="breadth", defaultValue="") String breadth,
-                                              @RequestParam(value="credits", defaultValue="0") int numCredits,
-                                              @RequestParam(value="department", defaultValue="") String department,
-                                              @RequestParam(value="number", defaultValue="0") int number,
-                                              @RequestParam(value="busy", defaultValue="") String busy,
-                                              @RequestParam(value="tags", defaultValue="") String tags) {
+    @RequestMapping("/course")
+    public @ResponseBody
+    List<Course> course(@RequestParam(value = "course", defaultValue = "") String course,
+                        @RequestParam(value = "num", defaultValue = "0") int courseNum) {
+        System.out.println(course + " " + courseNum);
         List<Map<String, Object>> rows;
-        List<Course> courses = new ArrayList<>();
+        List<Course> ret = new ArrayList<>();
 
         try {
-            if (!breadth.isEmpty()) {
-                breadth = breadth.replace("-", "' OR '");
-                rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses WHERE breadth='" + breadth + "'");
-            } else rows = jdbcTemplate.queryForList("SELECT * FROM mergedcourses");
+            //rows = jdbcTemplate.queryForList("SELECT course, courseNum, title, numCredits FROM  mergedcourses WHERE ...;");
+            String query = "SELECT DISTINCT mc.course, " +
+                    "mc.courseNum, " +
+                    "c.section, " +
+                    "mc.title, " +
+                    "mc.numCredits, " +
+                    "mc.breadth, " +
+                    "c.professor, " +
+                    "p.rating, " +
+                    "gd.avg, " +
+                    "c.schedule, " +
+                    "mc.description " +
+                    "FROM mergedcourses mc " +
+                    "LEFT JOIN class c ON mc.course = c.course " +
+                    "AND mc.courseNum = c.courseNum " +
+                    "LEFT JOIN professor p ON c.professor = p.profName " +
+                    "LEFT JOIN gradeDis gd ON CONCAT(mc.course, ' ', mc.courseNum) = gd.course " +
+                    "WHERE c.courseNum = '" + courseNum + "' AND " +
+                    "c.course LIKE '%" + course + "%';";
+            System.out.println(query);
+            rows = jdbcTemplate.queryForList(query);
 
-            for (Map row : rows) {
-                courses.add(new Course((String)row.get("course"),
-                        (Integer)row.get("section"),
-                        (String)row.get("title"),
-                        (Integer)row.get("numCredits"),
-                        ((String)row.get("breadth")).split("\\|"),
-                        (String)row.get("professor"),
-                        (String)row.get("description")));
+            for (Map<String, Object> row : rows) {
+                Double rating = (Double) row.get("rating");
+                if (rating == null) rating = 0.0;
+                Double avg = (Double) row.get("avg");
+                if (avg == null) avg = 0.0;
+                ret.add(new Course((String) row.get("course"),
+                        (Integer) row.get("courseNum"),
+                        (String) row.get("section"),
+                        (String) row.get("title"),
+                        (String) row.get("numCredits"),
+                        (String) row.get("breadth"),
+                        (String) row.get("professor"),
+                        rating,
+                        avg,
+                        (String) row.get("schedule"),
+                        (String) row.get("description")));
             }
-        } catch (Exception ex) { ex.printStackTrace(); }
-        return courses;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return ret;
     }
 }

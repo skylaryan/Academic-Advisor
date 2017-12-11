@@ -4,28 +4,38 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Course {
-
+public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String course; // CS200
-    private int section; // 001
-    private String title; // Introduction to Programming
-    private int numCredits; // 3
-    private String[] breadth; // {"Natural Sciences"}
-    private String professor; // John Doe
-    private String description; // This is a class where you will learn how to program.
+    private String course;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int courseNum;
+    private String section;
+    private String title;
+    private String numCredits;
+    private String breadth;
+    private String professor;
+    private double rating;
+    private double avg;
+    private String schedule;
+    private String description;
 
-    public Course(String course, int section, String title, int numCredits, String[] breadth, String professor,
-                  String description) {
+    public Course(String course, int courseNum, String section, String title, String numCredits, String breadth,
+                  String professors, double ratings, double avg, String schedules, String description) {
         this.course = course;
+        this.courseNum = courseNum;
         this.section = section;
         this.title = title;
         this.numCredits = numCredits;
         this.breadth = breadth;
-        this.professor = professor;
+        this.professor = professors;
+        this.rating = ratings;
+        this.avg = avg;
+        this.schedule = schedules;
         this.description = description;
     }
 
@@ -33,19 +43,11 @@ public class Course {
         return course;
     }
 
-    public String getFullCourse() {
-        return course + "-" + String.format("%03d", section);
+    public int getCourseNum() {
+        return courseNum;
     }
 
-    public String getDepartment() {
-        return course.split("(?<=\\D)(?=\\d)")[0];
-    }
-
-    public String getNumber() {
-        return course.split("(?<=\\D)(?=\\d)")[1];
-    }
-
-    public int getSection() {
+    public String getSection() {
         return section;
     }
 
@@ -53,20 +55,31 @@ public class Course {
         return title;
     }
 
-    public int getNumCredits() {
+    public String getNumCredits() {
         return numCredits;
     }
 
-    public String[] getBreadth() {
+    public String getBreadth() {
         return breadth;
     }
 
-    public String getProfessor() {
+    public String getProfessors() {
         return professor;
+    }
+
+    public double getRatings() {
+        return rating;
+    }
+
+    public double getGpa() {
+        return avg;
+    }
+
+    public String getSchedules() {
+        return schedule;
     }
 
     public String getDescription() {
         return description;
     }
-
 }
