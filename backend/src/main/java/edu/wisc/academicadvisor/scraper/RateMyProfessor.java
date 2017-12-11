@@ -28,6 +28,7 @@ public class RateMyProfessor {
                     temp += professors[i].charAt(j);
             }
             String url = "http://www.ratemyprofessors.com/search.jsp?query=" + temp + "+wisconsin+madison";
+            System.out.println(url);
             Document doc = Jsoup.connect(url).get();
             Elements links = doc.select("a[href]");
             String proflink = null;
@@ -37,6 +38,7 @@ public class RateMyProfessor {
                 }
             }
             JSONArray profarray = new JSONArray();
+            if (proflink == null) continue;
             doc = Jsoup.connect(proflink).get();
 
             // getElements by class returns an Elements object with information of each class with the specified name in the HTML file
@@ -55,6 +57,7 @@ public class RateMyProfessor {
             rat = rating.eachText();
             proftag = tags.eachText();
 
+            if (pn.size() < 1) continue;
             profarray.add(pn.get(0));
             profarray.add(Float.parseFloat(rat.get(0)));
             profarray.add(Float.parseFloat(rat.get(2)));
@@ -67,7 +70,7 @@ public class RateMyProfessor {
         json.writeJSONString(out);
 
         String jsonText = out.toString();
-        //System.out.println(jsonText);
+        System.out.println(jsonText);
         return jsonText;
     }
 }

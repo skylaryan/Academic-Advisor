@@ -15,12 +15,12 @@ public class GradeDistribution {
     public Map<String, double[]> GradeDistribution() throws IOException {
         //generate the array of relevant grade distribution files
         File [] files = new File[6];
-        files [0] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2015-2016Fall-164-193.pdf");
-        files [1] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2015-2016Fall-194-223.pdf");
-        files [2] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2015-2016Fall-224-253.pdf");
-        files [3] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2015-2016Fall-254-283.pdf");
-        files [4] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2015-2016Fall-284-313.pdf");
-        files [5] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2015-2016Fall-314-339.pdf");
+        files [0] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2014-2015Spring-164-193.pdf");
+        files [1] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2014-2015Spring-194-223.pdf");
+        files [2] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2014-2015Spring-224-253.pdf");
+        files [3] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2014-2015Spring-254-283.pdf");
+        files [4] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2014-2015Spring-284-313.pdf");
+        files [5] = new File("/home/academicadvisor/academicadvisor/backend/src/main/resources/pdf/Stats_distribs_2014-2015Spring-314-342.pdf");
 
         return GradeDistribution(files);
     }
@@ -49,7 +49,7 @@ public class GradeDistribution {
 
             //retain the course number from individual section
             for (int i = lines.length - 1; i >= 0; i--) {
-                if (lines[i].startsWith("Course Total")) {
+                if (lines[i].startsWith("CourseSearch Total")) {
                     String tempStr = lines[i - 1];
                     lines[i] = String.join(" ", lines[i], tempStr.substring(tempStr.length() - 3));
                 }
@@ -76,7 +76,7 @@ public class GradeDistribution {
                     if (temp[temp.length - 4].isEmpty())
                         lines[i] = null;
 
-                } else if ((lines[i].startsWith("001") == false) && (lines[i].startsWith("Course Total") == false))
+                } else if ((lines[i].startsWith("001") == false) && (lines[i].startsWith("CourseSearch Total") == false))
                     lines[i] = null;
             }
 
@@ -144,7 +144,7 @@ public class GradeDistribution {
                     index++;
                 }
 
-                //if the line starts with "Course Total"
+                //if the line starts with "CourseSearch Total"
             } else {
 
                 //course name
@@ -202,9 +202,9 @@ public class GradeDistribution {
 
                 }
 
-                /*for (int k = 0; k < grade.length; k++) {
+                for (int k = 0; k < grade.length; k++) {
                     System.out.println(grade[k]);
-                }*/
+                }
             }
             //input the data into Map gradeDistribution
             gradeDistribution.put(courseName, grade);
