@@ -1,6 +1,8 @@
 package wisc.academicadvisor;
 
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -18,30 +20,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class CourseDescription extends AppCompatActivity {
 
-    private TextView course_UID, course_title, credits, breadth,
-            professor, prof_rating,
-            schedule,
-            course_desc;
+    private TextView course_UID, course_title, credits, breadth, course_desc;
 
-    String jsResponse = "";
+    private String course = "", num = "";
+
+    private String jsResponse = "";
+    private ArrayList<String> sec_array = new ArrayList<String>();
 
     private ProgressBar pb;
 
     protected class readServerPage extends AsyncTask<String, Void, String> {
-        @Override
-        protected void onPreExecute() {
-            pb.setProgress(0);
-            pb.setMax(100);
-        }
 
         @Override
         protected void onPostExecute(String s) {
@@ -55,71 +54,56 @@ public class CourseDescription extends AppCompatActivity {
                 HttpURLConnection urlConnection = null;
                 URL url = null;
                 try {
-                    url = new URL("http://tyleroconnell.com:8080/courses");
+                    course = getIntent().getStringExtra("course");
+                    num = getIntent().getStringExtra("courseNum");
+                    String search_URL = "http://tyleroconnell.com:8080/course?course=" +
+                            course + "&num=" + num;
+                    url = new URL(search_URL);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    String line;
+                    while ((line = rd.readLine()) != null)
+                        jsResponse += line + "\n";
 
                     try {
-                        //System.out.println(content);
-
                         JSONParser parser = new JSONParser();
-                        final String cDataIn = getIntent().getStringExtra("jsonCourseData");
-                        final String useJSONbool = getIntent().getStringExtra("useJSONbool");
+                        JSONArray jaCourse = (JSONArray) parser.parse(jsResponse);
 
-                        final JSONObject joCourse;
-                        JSONArray jaCourse;
+                        final JSONObject firstCourse = (JSONObject) jaCourse.get(0);
+                        final String titleString = firstCourse.get("course") + " "
+                                + firstCourse.get("courseNum");
 
-                        if (useJSONbool.equals("true")) {
-                            urlConnection = (HttpURLConnection) url.openConnection();
-                            BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                            jsResponse = "";
-                            String line;
-                            while ((line = rd.readLine()) != null) {
-                                jsResponse += line + "\n";
-                            }
-                            jaCourse = (JSONArray) parser.parse(jsResponse);
-                            joCourse = (JSONObject) jaCourse.get(0);
+                        String scrollText = "";
+                        scrollText += firstCourse.get("description") + "<br />";
+                        //Html.fromHtml(HTML-formatted string)
+
+                        for (int sec = 0; sec < jaCourse.size(); sec++) {
+                            scrollText += "<br />"; // OR USE <br />
+                            JSONObject secItr = (JSONObject) jaCourse.get(sec);
+                            scrollText += "<b>" + secItr.get("section") + "</b>";
+                            scrollText += "<br />Professor: " + secItr.get("professors");
+                            scrollText += "<br />Rating: " + secItr.get("ratings");
+                            scrollText += "<br />Average GPA: " + secItr.get("gpa");
+                            scrollText += "<br />";
+                            sec_array.add(parseSchedule(secItr.get("schedules") + ""));
+                            scrollText +=
+                                    parseSchedule(secItr.get("schedules") + "");
+                            scrollText += "<br />";
                         }
-                        else
-                            joCourse = (JSONObject) parser.parse(cDataIn);
-
-                        final String breadthString;
-                        String bs = "";
-                        JSONArray jBrdth = (JSONArray) joCourse.get("breadth");
-                        for (int i = 0; i < jBrdth.size(); i++) {
-                            bs += "" + jBrdth.get(i);
-                            if (i + 1 < jBrdth.size())
-                                bs += ", ";
-                        }
-                        breadthString = bs;
-
-                        String sectionNum = ("" + joCourse.get("fullCourse")).split("-")[1];
-
-                        final String sourceString = "<b>" + joCourse.get("department") + " "
-                                + joCourse.get("number") + "</b>" + " - <i>" + sectionNum + "</i>";
-
+                        final String FscrollText = scrollText;
                         course_UID.post(new Runnable() {
                             @Override
                             public void run() {
-                                course_UID.setText(Html.fromHtml(sourceString));
-                                course_title.setText("" + joCourse.get("title"));
-                                credits.setText("" + joCourse.get("numCredits"));
-                                breadth.setText(breadthString);
-                                professor.setText("" + joCourse.get("professor"));
-                                prof_rating.setText("" + joCourse.get("professorRating"));
-
-                                JSONArray jSch = (JSONArray) joCourse.get("schedule");
-                                String[] pjs = new String[jSch.size()];
-                                for (int i = 0; i < jSch.size(); i++) {
-                                    pjs[i] = (String) jSch.get(i);
-                                }
-                                schedule.setText(parseScheduleMilitary(pjs));
-
-                                course_desc.setText("" + joCourse.get("description"));
+                                course_UID.setText(titleString);
+                                course_title.setText("" + firstCourse.get("title"));
+                                credits.setText("" + firstCourse.get("numCredits"));
+                                String bs = firstCourse.get("breadth") + "";
+                                if (bs.length() == 0)
+                                    bs = "N/A";
+                                breadth.setText(bs);
+                                course_desc.setText(Html.fromHtml(FscrollText));
                             }
                         });
-
-
-
-
                     } finally {
                         urlConnection.disconnect();
                     }
@@ -138,15 +122,10 @@ public class CourseDescription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_description);
-
         course_UID = (TextView) findViewById(R.id.course_UID);
-        // combines course department, course #, and section #
         course_title = (TextView) findViewById(R.id.course_title);
         credits = (TextView) findViewById(R.id.credits);
         breadth = (TextView) findViewById(R.id.breadth);
-        professor = (TextView) findViewById(R.id.professor);
-        prof_rating = (TextView) findViewById(R.id.prof_rating);
-        schedule = (TextView) findViewById(R.id.schedule);
         course_desc = (TextView) findViewById(R.id.course_desc);
 
         pb = (ProgressBar) findViewById(R.id.progressBar);
@@ -160,20 +139,23 @@ public class CourseDescription extends AppCompatActivity {
         /** Parses strings of the form
          *  MW 4:00-5:15PM\nTR 4:00-5:15PM         *
          */
-
-		String[] daysOfWeek = {"", "", "", "", ""};
+        String[] daysOfWeek = {"", "", "", "", ""};
         String days = "MTWRF";
         String schOut = "";
-        String[] schArr_NL = sch.split("\\r?\\n");
+        String[] schArr_NL = sch.split("\n");
+        // for distinct class times
         for (int L = 0; L < schArr_NL.length; L++) {
-            String[] perLineArr = schArr_NL[L].split(" ");
-            for (int D = 0; D < 5; D++) {
-                if (perLineArr[0].contains("" + days.charAt(D))) {
-                    if (daysOfWeek[D].length() > 0)
-                        daysOfWeek[D] += ", "; // multiple classes in 1 day
-                    else
-                        daysOfWeek[D] += days.charAt(D) + ": "; // 1st class of day
-                    daysOfWeek[D] += perLineArr[1]; // time range
+            if (schArr_NL[L].length() > 0) {
+                String[] perLineArr = schArr_NL[L].split("\\s+");
+                // each day
+                for (int D = 0; D < 5; D++) {
+                    if (perLineArr[0].contains("" + days.charAt(D))) {
+                        if (!daysOfWeek[D].equals(""))
+                            daysOfWeek[D] += ", "; // multiple classes in 1 day
+                        else
+                            daysOfWeek[D] += days.charAt(D) + ": "; // 1st class of day
+                        daysOfWeek[D] += perLineArr[1]; // time range
+                    }
                 }
             }
         }
@@ -183,7 +165,7 @@ public class CourseDescription extends AppCompatActivity {
                 if (!firstDayReached)
                     firstDayReached = true;
                 else // only add new line if we had class on an earlier day of the week
-                    schOut += "\n";
+                    schOut += "<br />";
                 schOut += daysOfWeek[D];
             }
         }

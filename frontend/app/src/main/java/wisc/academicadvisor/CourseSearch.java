@@ -1,6 +1,7 @@
 package wisc.academicadvisor;
 
 import android.content.Intent;
+import android.media.Rating;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class CourseSearch extends AppCompatActivity {
     private Spinner credit_spinner;
     private SeekBar avgGPA;
     private int filters = 0;
+    private String gpa = "";
 
     @Override
     protected void onResume() {
@@ -67,7 +69,7 @@ public class CourseSearch extends AppCompatActivity {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                String gpa = String.format("%.02f", progress / 100.0);
+                gpa = String.format("%.02f", progress / 100.0);
                 gpaTextDisplay.setText("Use Average GPA: " + gpa + " / 4.00");
             }
 
@@ -76,31 +78,51 @@ public class CourseSearch extends AppCompatActivity {
     }
 
     public void launchURL(View v) {
-        url_S = "tyleroconnell.com:8080/courses";
+        url_S = "http://tyleroconnell.com:8080/courses";
+        boolean firstSearchParam = true;
 
         department = ((EditText) findViewById(R.id.dept_entry)).getText().toString().replace(" ", "%20");
         number = ((EditText) findViewById(R.id.courseNumberEdit)).getText().toString();
         credits = credit_spinner.getSelectedItem().toString().trim();
-        professor = ((EditText) findViewById(R.id.profEntry)).getText().toString();
+        professor = ((EditText) findViewById(R.id.profEntry)).getText().toString().replace(" ", "%20");
 
         if (department.length() > 0) {
-            url_S += "?department=" + department;
+            if (firstSearchParam) {
+                url_S += "?";
+                firstSearchParam = false;
+            } else
+                url_S += "&";
+            url_S += "department=" + department;
             filters++;
         }
         if (number.length() > 0) {
-            url_S += "?number=" + number;
+            if (firstSearchParam) {
+                url_S += "?";
+                firstSearchParam = false;
+            } else
+                url_S += "&";
+            url_S += "number=" + number;
             filters++;
         }
         if (credit_spinner.getSelectedItemPosition() != 0) {
-            url_S += "?credits=" + credits;
+            if (firstSearchParam) {
+                url_S += "?";
+                firstSearchParam = false;
+            } else
+                url_S += "&";
+            url_S += "credits=" + credits;
             filters++;
         }
         if (professor.length() > 0) {
-            url_S += "?professor=" + professor;
+            if (firstSearchParam) {
+                url_S += "?";
+                firstSearchParam = false;
+            } else
+                url_S += "&";
+            url_S += "professor=" + professor;
             filters++;
         }
 
-        professorRating = ((RatingBar) findViewById(R.id.prof_rating_bar)).getRating() + "";
 
         boolean firstBreadthReached = false;
         if (((CheckBox) findViewById(R.id.humanities)).isChecked()) {
@@ -108,7 +130,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Humanities";
         }
@@ -117,7 +143,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Literature";
         }
@@ -126,7 +156,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Biological%20Science";
         }
@@ -135,7 +169,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Natural%20Science";
         }
@@ -144,7 +182,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Physical%20Science";
         }
@@ -153,7 +195,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Social%20Science";
         }
@@ -162,7 +208,11 @@ public class CourseSearch extends AppCompatActivity {
                 url_S += "-";
             else {
                 firstBreadthReached = true;
-                url_S += "?breadth=";
+                if (firstSearchParam)
+                    url_S += "?";
+                else
+                    url_S += "&";
+                url_S += "breadth=";
             }
             url_S += "Interdivisional";
         }
@@ -172,16 +222,30 @@ public class CourseSearch extends AppCompatActivity {
 
         Switch useProfRating = (Switch) findViewById(R.id.switch_profRating);
         Switch useAvgGPA = (Switch) findViewById(R.id.switch_GPA);
-        if (useProfRating.isChecked())
+        professorRating = Double.toString(((RatingBar) findViewById(R.id.prof_rating_bar)).getRating());
+        if (useProfRating.isChecked()) {
+            if (firstSearchParam) {
+                url_S += "?";
+                firstSearchParam = false;
+            } else
+                url_S += "&";
+            url_S += "rmp=" + professorRating;
             filters++;
-        if (useAvgGPA.isChecked())
+        }
+
+        if (useAvgGPA.isChecked()) {
+            if (firstSearchParam) {
+                url_S += "?";
+                firstSearchParam = false;
+            } else
+                url_S += "&";
+            url_S += "gpa=" + gpa;
             filters++;
+        }
 
         String numFilters = filters + "";
 
         Toast.makeText(CourseSearch.this, filters + " filters selected", Toast.LENGTH_SHORT).show();
-
-
 
 
         Intent intent = new Intent(CourseSearch.this, CourseSearchResults.class);
